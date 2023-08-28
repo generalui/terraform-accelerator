@@ -1,0 +1,6 @@
+bucket       = "Project-develop"
+external_id  = "terraform-develop"
+profile      = "Project_tf_dev"
+region       = "us-west-2"
+role_arn     = "arn:aws:iam::1234567890:role/DevOps"
+session_name = "aws-session"

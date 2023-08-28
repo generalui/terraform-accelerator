@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "amazonwebservices.aws-toolkit-vscode",
+        "bierner.markdown-preview-github-styles",
+        "DanielSanMedium.dscodegpt",
+        "DavidAnson.vscode-markdownlint",
+        "eamodio.gitlens",
+        "github.vscode-github-actions",
+        "hashicorp.terraform",
+        "mikestead.dotenv",
+        "shardulm94.trailing-spaces",
+        "streetsidesoftware.code-spell-checker"
+    ]
+}

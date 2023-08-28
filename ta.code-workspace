@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.formatOnSave": true,
+		"editor.wordWrap": "on",
+		"files.associations": {
+			".env-*": "dotenv"
+		},
+		"files.eol": "\n",
+		"workbench.editor.highlightModifiedTabs": true
+	}
+}

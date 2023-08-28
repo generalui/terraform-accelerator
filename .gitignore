@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+.env-*
+terraform.tfvars
+
+# IDE
+*.code-workspace
+!ta.code-workspace
+
+# Terraform config
+config.*.tfbackend
+!config.example.tfbackend
+
+# Misc
+no_commit
