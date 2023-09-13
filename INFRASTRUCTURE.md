@@ -16,3 +16,9 @@
 Variables for are set as defaults in the [`.variables.tf`](./variables.tf) file. Some of these defaults may work fine, but many need actual values set.
 
 To override the default values, create a `terraform.tfvars` file in appropriate terraform folder. Find out more about [.tfvars files](https://www.terraform.io/docs/language/values/variables.html#variable-definitions-tfvars-files).
+
+## Architectural Diagrams
+
+AWS PCI Compliance:
+
+![AWS PCI Compliance Architectural Diagram](./doc_assets/AWS_PCI_compliance.png)

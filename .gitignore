@@ -11,7 +11,9 @@ terraform.tfvars
 *.code-workspace
 !ta.code-workspace
 
-# Terraform config
+# Terraform
+.terraform
+.terraform.lock.hcl
 config.*.tfbackend
 !config.example.tfbackend
 
