@@ -10,6 +10,24 @@ variable "cluster_size" {
   description = "Number of DB instances to create in the cluster"
 }
 
+variable "context" {
+  type = any
+  default = {
+    attributes = []
+    name       = null
+    namespace  = null
+    stage      = null
+    tags       = {}
+  }
+  description = <<-EOT
+    Single object for setting entire context at once.
+    See description of individual variables for details.
+    Leave string and numeric variables as `null` to use default value.
+    Individual variable settings (non-null) override settings in context object,
+    except for attributes, tags, and additional_tag_map, which are merged.
+  EOT
+}
+
 # https://docs.aws.amazon.com/documentdb/latest/developerguide/limits.html#suported-instance-types
 variable "instance_class" {
   type        = string
