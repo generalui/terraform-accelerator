@@ -186,3 +186,21 @@ variable "tags" {
     Neither the tag keys nor the tag values will be modified by this module.
     EOT
 }
+
+variable "context" {
+  type = any
+  default = {
+    attributes = []
+    name       = null
+    namespace  = null
+    stage      = null
+    tags       = {}
+  }
+  description = <<-EOT
+    Single object for setting entire context at once.
+    See description of individual variables for details.
+    Leave string and numeric variables as `null` to use default value.
+    Individual variable settings (non-null) override settings in context object,
+    except for attributes, tags, and additional_tag_map, which are merged.
+  EOT
+}
