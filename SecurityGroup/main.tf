@@ -1,7 +1,7 @@
 # AWS Security Group
 # See https://registry.terraform.io/modules/cloudposse/security-group/aws/2.2.0
 
-module "security-group" {
+module "security_group" {
   source  = "cloudposse/security-group/aws"
   version = "2.2.0"
 

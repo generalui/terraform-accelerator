@@ -1,4 +1,4 @@
-module "ecs-fargate-service" {
+module "ecs_fargate_service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
   version = "2.0.41"
 
