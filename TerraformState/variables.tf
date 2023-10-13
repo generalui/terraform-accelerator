@@ -55,6 +55,18 @@ variable "namespace" {
   description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
 }
 
+variable "profile" {
+  type        = string
+  default     = ""
+  description = "AWS profile name as set in the shared credentials file"
+}
+
+variable "role_arn" {
+  type        = string
+  default     = null
+  description = "The role to be assumed"
+}
+
 variable "stage" {
   type        = string
   default     = null
@@ -68,6 +80,12 @@ variable "tags" {
     Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).
     Neither the tag keys nor the tag values will be modified by this module.
     EOT
+}
+
+variable "terraform_backend_config_file_path" {
+  type        = string
+  default     = ""
+  description = "Directory for the terraform backend config file, usually `.`. The default is to create no file."
 }
 
 variable "terraform_state_file" {
