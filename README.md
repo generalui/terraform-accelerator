@@ -17,6 +17,21 @@ Variables for are set as defaults in the [`.variables.tf`](./variables.tf) file.
 
 To override the default values, create a `terraform.tfvars` file in appropriate terraform folder. Find out more about [.tfvars files](https://www.terraform.io/docs/language/values/variables.html#variable-definitions-tfvars-files).
 
+## Linting
+
+Before a PR to the main branch will be accepted, the code must pass lint.
+To check if scripts are passing lint locally, simply execute
+
+```sh
+terraform fmt -check -recursive -diff
+```
+
+To format and fix any linting issues, execute
+
+```sh
+terraform fmt -recursive
+```
+
 ## Architectural Diagrams
 
 AWS PCI Compliance:
