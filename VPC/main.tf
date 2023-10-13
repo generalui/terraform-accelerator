@@ -1,5 +1,5 @@
 # AWS VPC
-# See https://registry.terraform.io/modules/cloudposse/vpc/aws/latest
+# See https://registry.terraform.io/modules/cloudposse/vpc/aws/2.1.0
 
 module "vpc" {
   source  = "cloudposse/vpc/aws"

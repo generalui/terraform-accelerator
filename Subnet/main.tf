@@ -1,3 +1,6 @@
+# AWS Subnets
+# See https://registry.terraform.io/modules/cloudposse/dynamic-subnets/aws/2.4.1
+
 module "dynamic_subnets" {
   source  = "cloudposse/dynamic-subnets/aws"
   version = "2.4.1"
