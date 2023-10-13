@@ -1,3 +1,7 @@
+# Label
+# Terraform Module to define a consistent naming convention by (namespace, stage, name, [attributes])
+# See https://registry.terraform.io/modules/cloudposse/label/null/0.25.0
+
 module "label" {
   source  = "cloudposse/label/null"
   version = "0.25.0"
