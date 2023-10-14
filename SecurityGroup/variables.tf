@@ -1,3 +1,12 @@
+variable "allow_all_egress" {
+  type        = bool
+  description = <<-EOT
+    A convenience that adds to the rules specified elsewhere a rule that allows all egress.
+    If this is false and no egress rules are specified via `rules` or `rule-matrix`, then no egress will be allowed.
+    EOT
+  default     = true
+}
+
 variable "attributes" {
   type        = list(string)
   default     = []
@@ -25,15 +34,6 @@ variable "context" {
     Individual variable settings (non-null) override settings in context object,
     except for attributes, tags, and additional_tag_map, which are merged.
   EOT
-}
-
-variable "allow_all_egress" {
-  type        = bool
-  description = <<-EOT
-    A convenience that adds to the rules specified elsewhere a rule that allows all egress.
-    If this is false and no egress rules are specified via `rules` or `rule-matrix`, then no egress will be allowed.
-    EOT
-  default     = true
 }
 
 variable "name" {
