@@ -178,6 +178,12 @@ variable "maintenance_window" {
   default     = "Mon:03:00-Mon:04:00"
 }
 
+variable "max_allocated_storage" {
+  type        = number
+  description = "The upper limit to which RDS can automatically scale the storage in GBs"
+  default     = 0
+}
+
 variable "multi_az" {
   type        = bool
   description = "Set to true if multi AZ deployment must be supported"

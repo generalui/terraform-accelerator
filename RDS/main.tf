@@ -28,6 +28,7 @@ module "rds" {
   instance_class              = var.instance_class
   maintenance_window          = var.maintenance_window
   major_engine_version        = var.major_engine_version
+  max_allocated_storage       = var.max_allocated_storage
   skip_final_snapshot         = var.skip_final_snapshot
   snapshot_identifier         = var.snapshot_identifier
   storage_type                = va.storage_type
