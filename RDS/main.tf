@@ -31,7 +31,7 @@ module "rds" {
   max_allocated_storage       = var.max_allocated_storage
   skip_final_snapshot         = var.skip_final_snapshot
   snapshot_identifier         = var.snapshot_identifier
-  storage_type                = va.storage_type
+  storage_type                = var.storage_type
   storage_encrypted           = var.storage_encrypted
 
   allowed_cidr_blocks = var.allowed_cidr_blocks
