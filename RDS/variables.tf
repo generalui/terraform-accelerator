@@ -130,6 +130,12 @@ variable "db_parameter_group" {
   # "postgres9.5"
 }
 
+variable "deletion_protection" {
+  type        = bool
+  description = "Set to true to enable deletion protection on the RDS instance"
+  default     = false
+}
+
 variable "dns_zone_id" {
   type        = string
   default     = ""
@@ -163,6 +169,12 @@ variable "instance_class" {
   type        = string
   description = "Class of RDS instance"
   # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html
+}
+
+variable "kms_key_arn" {
+  type        = string
+  description = "The ARN of the existing KMS key to encrypt storage"
+  default     = ""
 }
 
 variable "major_engine_version" {
