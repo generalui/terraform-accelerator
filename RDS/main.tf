@@ -23,9 +23,11 @@ module "rds" {
   db_options                  = var.db_options
   db_parameter                = var.db_parameter
   db_parameter_group          = var.db_parameter_group
+  deletion_protection         = var.deletion_protection
   engine                      = var.engine
   engine_version              = var.engine_version
   instance_class              = var.instance_class
+  kms_key_arn                 = var.kms_key_arn
   maintenance_window          = var.maintenance_window
   major_engine_version        = var.major_engine_version
   max_allocated_storage       = var.max_allocated_storage

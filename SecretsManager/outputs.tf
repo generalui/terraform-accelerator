@@ -29,7 +29,7 @@ output "kms_key_id" {
 }
 
 output "kms_key_alias_arn" {
-  value       = module.secretsmanager.alias_arn
+  value       = module.secretsmanager.kms_key_alias_arn
   description = "KMS key alias ARN"
 }
 
