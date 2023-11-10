@@ -1,6 +1,44 @@
-variable "vpc_id" {
-  type        = string
-  description = "VPC ID where subnets will be created (e.g. `vpc-aceb2723`)"
+variable "attributes" {
+  type        = list(string)
+  default     = []
+  description = <<-EOT
+    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,
+    in the order they appear in the list. New attributes are appended to the
+    end of the list. The elements of the list are joined by the `delimiter`
+    and treated as a single ID element.
+    EOT
+}
+
+variable "availability_zones" {
+  type        = list(string)
+  description = <<-EOT
+    List of Availability Zones (AZs) where subnets will be created. Ignored when `availability_zone_ids` is set.
+    The order of zones in the list ***must be stable*** or else Terraform will continually make changes.
+    If no AZs are specified, then `max_subnet_count` AZs will be selected in alphabetical order.
+    If `max_subnet_count > 0` and `length(var.availability_zones) > max_subnet_count`, the list
+    will be truncated. We recommend setting `availability_zones` and `max_subnet_count` explicitly as constant
+    (not computed) values for predictability, consistency, and stability.
+    EOT
+  default     = []
+  nullable    = false
+}
+
+variable "context" {
+  type = any
+  default = {
+    attributes = []
+    name       = null
+    namespace  = null
+    stage      = null
+    tags       = {}
+  }
+  description = <<-EOT
+    Single object for setting entire context at once.
+    See description of individual variables for details.
+    Leave string and numeric variables as `null` to use default value.
+    Individual variable settings (non-null) override settings in context object,
+    except for attributes, tags, and additional_tag_map, which are merged.
+  EOT
 }
 
 variable "igw_id" {
@@ -14,6 +52,20 @@ variable "igw_id" {
   validation {
     condition     = length(var.igw_id) < 2
     error_message = "Only 1 igw_id can be provided."
+  }
+}
+
+variable "ipv4_cidr_block" {
+  type        = list(string)
+  description = <<-EOT
+    Base IPv4 CIDR block which will be divided into subnet CIDR blocks (e.g. `10.0.0.0/16`). Ignored if `ipv4_cidrs` is set.
+    If no CIDR block is provided, the VPC's default IPv4 CIDR block will be used.
+    EOT
+  default     = []
+  nullable    = false
+  validation {
+    condition     = length(var.ipv4_cidr_block) < 2
+    error_message = "Only 1 ipv4_cidr_block can be provided. Use ipv4_cidrs to provide a CIDR per subnet."
   }
 }
 
@@ -33,32 +85,14 @@ variable "max_subnet_count" {
   nullable    = false
 }
 
-variable "availability_zones" {
-  type        = list(string)
+variable "name" {
+  type        = string
+  default     = null
   description = <<-EOT
-    List of Availability Zones (AZs) where subnets will be created. Ignored when `availability_zone_ids` is set.
-    The order of zones in the list ***must be stable*** or else Terraform will continually make changes.
-    If no AZs are specified, then `max_subnet_count` AZs will be selected in alphabetical order.
-    If `max_subnet_count > 0` and `length(var.availability_zones) > max_subnet_count`, the list
-    will be truncated. We recommend setting `availability_zones` and `max_subnet_count` explicitly as constant
-    (not computed) values for predictability, consistency, and stability.
+    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.
+    This is the only ID element not also included as a `tag`.
+    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.
     EOT
-  default     = []
-  nullable    = false
-}
-
-variable "ipv4_cidr_block" {
-  type        = list(string)
-  description = <<-EOT
-    Base IPv4 CIDR block which will be divided into subnet CIDR blocks (e.g. `10.0.0.0/16`). Ignored if `ipv4_cidrs` is set.
-    If no CIDR block is provided, the VPC's default IPv4 CIDR block will be used.
-    EOT
-  default     = []
-  nullable    = false
-  validation {
-    condition     = length(var.ipv4_cidr_block) < 2
-    error_message = "Only 1 ipv4_cidr_block can be provided. Use ipv4_cidrs to provide a CIDR per subnet."
-  }
 }
 
 variable "namespace" {
@@ -73,16 +107,6 @@ variable "stage" {
   description = "ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'"
 }
 
-variable "name" {
-  type        = string
-  default     = null
-  description = <<-EOT
-    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.
-    This is the only ID element not also included as a `tag`.
-    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.
-    EOT
-}
-
 variable "tags" {
   type        = map(string)
   default     = {}
@@ -92,20 +116,7 @@ variable "tags" {
     EOT
 }
 
-variable "context" {
-  type = any
-  default = {
-    attributes = []
-    name       = null
-    namespace  = null
-    stage      = null
-    tags       = {}
-  }
-  description = <<-EOT
-    Single object for setting entire context at once.
-    See description of individual variables for details.
-    Leave string and numeric variables as `null` to use default value.
-    Individual variable settings (non-null) override settings in context object,
-    except for attributes, tags, and additional_tag_map, which are merged.
-  EOT
+variable "vpc_id" {
+  type        = string
+  description = "VPC ID where subnets will be created (e.g. `vpc-aceb2723`)"
 }
