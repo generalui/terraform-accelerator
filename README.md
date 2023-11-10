@@ -8,6 +8,15 @@ These modules are intended as "go to" terraform modules for building IAC.
 - [Terraform CLI](https://learn.hashicorp.com/tutorials/terraform/install-cli) tool installed
   - This repo is set up to use [asdf](https://github.com/asdf-community/asdf-hashicorp)
 
+## Usage
+
+The modules in this repo may be copied to another terraform project or may be referenced directly from Github.
+(See <https://developer.hashicorp.com/terraform/language/modules/sources#github>)
+
+```hcl
+source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.0"
+```
+
 ## Linting
 
 Before a PR to the main branch will be accepted, the code must pass lint.
