@@ -5,9 +5,10 @@ module "kms_key" {
   source  = "cloudposse/kms-key/aws"
   version = "0.12.1"
 
-  name      = var.name == null ? var.context.name : var.name
-  namespace = var.namespace == null ? var.context.namespace : var.namespace
-  stage     = var.stage == null ? var.context.stage : var.stage
+  attributes = var.attributes == null ? var.context.attributes : var.attributes
+  name       = var.name == null ? var.context.name : var.name
+  namespace  = var.namespace == null ? var.context.namespace : var.namespace
+  stage      = var.stage == null ? var.context.stage : var.stage
 
   alias                   = var.alias
   description             = var.description
