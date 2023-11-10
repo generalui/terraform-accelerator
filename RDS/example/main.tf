@@ -1,4 +1,4 @@
-# This example creates a Key Pair and encrypts them in the Secret Manager using KMS.
+# This example creates RDS instance.
 
 terraform {
   required_providers {

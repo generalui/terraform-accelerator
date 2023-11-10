@@ -1,4 +1,4 @@
-# This example creates an AWS Virtual Private Cloud (VPC).
+# This example creates terraform state in an S3 bucket with a lock in DynamoDB.
 
 terraform {
   required_providers {
