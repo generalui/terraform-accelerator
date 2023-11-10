@@ -5,9 +5,10 @@ module "rds" {
   source  = "cloudposse/rds/aws"
   version = "0.43.0"
 
-  name      = var.name == null ? var.context.name : var.name
-  namespace = var.namespace == null ? var.context.namespace : var.namespace
-  stage     = var.stage == null ? var.context.stage : var.stage
+  attributes = var.attributes == null ? var.context.attributes : var.attributes
+  name       = var.name == null ? var.context.name : var.name
+  namespace  = var.namespace == null ? var.context.namespace : var.namespace
+  stage      = var.stage == null ? var.context.stage : var.stage
 
   allocated_storage           = var.allocated_storage
   allow_major_version_upgrade = var.allow_major_version_upgrade
@@ -36,14 +37,15 @@ module "rds" {
   storage_type                = var.storage_type
   storage_encrypted           = var.storage_encrypted
 
-  allowed_cidr_blocks = var.allowed_cidr_blocks
-  ca_cert_identifier  = var.ca_cert_identifier
-  dns_zone_id         = var.dns_zone_id
-  host_name           = var.host_name
-  multi_az            = var.multi_az
-  option_group_name   = var.option_group_name
-  publicly_accessible = var.publicly_accessible
-  security_group_ids  = var.security_group_ids
-  subnet_ids          = var.subnet_ids
-  vpc_id              = var.vpc_id
+  allowed_cidr_blocks  = var.allowed_cidr_blocks
+  ca_cert_identifier   = var.ca_cert_identifier
+  db_subnet_group_name = var.db_subnet_group_name
+  dns_zone_id          = var.dns_zone_id
+  host_name            = var.host_name
+  multi_az             = var.multi_az
+  option_group_name    = var.option_group_name
+  publicly_accessible  = var.publicly_accessible
+  security_group_ids   = var.security_group_ids
+  subnet_ids           = var.subnet_ids
+  vpc_id               = var.vpc_id
 }
