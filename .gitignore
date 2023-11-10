@@ -19,3 +19,6 @@ config.*.tfbackend
 
 # Misc
 no_commit
+
+# Examples
+Lambda/example/lambda_function.zip
