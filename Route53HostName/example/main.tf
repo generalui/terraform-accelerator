@@ -1,4 +1,5 @@
-# This example creates an AWS Virtual Private Cloud (VPC).
+# This example would create DNS records
+# THIS DOESN'T ACTUALLY WORK! NEED A REAL zone_id, dns_name, AND records..
 
 terraform {
   required_providers {

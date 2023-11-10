@@ -1,4 +1,4 @@
-# This example creates a Key Pair and encrypts them in the Secret Manager using KMS.
+# This example creates a Label that can be used to help ensure consistant naming conventions.
 
 terraform {
   required_providers {
@@ -21,14 +21,6 @@ provider "aws" {
   }
 }
 
-# Generate a random string to append to the end of the secret's name.
-# Secrets aren't immediatelt deleted. If this needs to be deleted and recreated,
-# Each instance of the secrate should have a nunique name.
-resource "random_string" "secret_name" {
-  length  = 6
-  special = false
-}
-
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
   source = "../"
@@ -44,10 +36,6 @@ module "this" {
 }
 
 # Variables
-
-locals {
-  key_secret_name = "${module.this.context.name}-key-${random_string.secret_name.result}"
-}
 
 variable "attributes" {
   type        = list(string)

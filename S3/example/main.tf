@@ -1,4 +1,4 @@
-# This example creates a Key Pair and saves them to the Secret Manager.
+# This example creates a private S3 bucket by users in the created "s3_access" group and then by assuming the created "s3-access" role.
 
 terraform {
   required_providers {

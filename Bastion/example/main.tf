@@ -1,4 +1,4 @@
-# This example creates a Managed Policy.
+# This example creates a bastion.
 
 terraform {
   required_providers {
