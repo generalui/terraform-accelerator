@@ -22,6 +22,7 @@ variable "context" {
   type = any
   default = {
     attributes = []
+    enabled    = true
     name       = null
     namespace  = null
     stage      = null
@@ -34,6 +35,12 @@ variable "context" {
     Individual variable settings (non-null) override settings in context object,
     except for attributes, tags, and additional_tag_map, which are merged.
   EOT
+}
+
+variable "enabled" {
+  type        = bool
+  default     = null
+  description = "Set to false to prevent the module from creating any resources"
 }
 
 variable "name" {
@@ -50,6 +57,22 @@ variable "namespace" {
   type        = string
   default     = null
   description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
+}
+
+variable "preserve_security_group_id" {
+  type        = bool
+  description = <<-EOT
+    When `false` and `create_before_destroy` is `true`, changes to security group rules
+    cause a new security group to be created with the new rules, and the existing security group is then
+    replaced with the new one, eliminating any service interruption.
+    When `true` or when changing the value (from `false` to `true` or from `true` to `false`),
+    existing security group rules will be deleted before new ones are created, resulting in a service interruption,
+    but preserving the security group itself.
+    **NOTE:** Setting this to `true` does not guarantee the security group will never be replaced,
+    it only keeps changes to the security group rules from triggering a replacement.
+    See the README for further discussion.
+    EOT
+  default     = false
 }
 
 variable "revoke_rules_on_delete" {
@@ -135,6 +158,28 @@ variable "security_group_delete_timeout" {
     lingering ENIs left by certain AWS services such as Elastic Load Balancing.
     EOT
   default     = "15m"
+}
+
+variable "security_group_description" {
+  type        = string
+  description = <<-EOT
+    The description to assign to the created Security Group.
+    Warning: Changing the description causes the security group to be replaced.
+    EOT
+  default     = "Managed by Terraform"
+}
+
+variable "security_group_name_prefix" {
+  type        = list(string)
+  description = <<-EOT
+    The name prefix to assign to the security group. The name must be unique within the VPC.
+    If not provided, will be derived from the `null-label.context` passed in.
+    EOT
+  default     = []
+  validation {
+    condition     = length(var.security_group_name_prefix) < 2
+    error_message = "Only 1 security group name can be provided."
+  }
 }
 
 variable "stage" {
