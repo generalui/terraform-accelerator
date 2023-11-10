@@ -5,9 +5,10 @@ module "key_pair" {
   source  = "cloudposse/key-pair/aws"
   version = "0.20.0"
 
-  name      = var.name == null ? var.context.name : var.name
-  namespace = var.namespace == null ? var.context.namespace : var.namespace
-  stage     = var.stage == null ? var.context.stage : var.stage
+  attributes = var.attributes == null ? var.context.attributes : var.attributes
+  name       = var.name == null ? var.context.name : var.name
+  namespace  = var.namespace == null ? var.context.namespace : var.namespace
+  stage      = var.stage == null ? var.context.stage : var.stage
 
   generate_ssh_key          = var.generate_ssh_key
   private_key_extension     = var.private_key_extension

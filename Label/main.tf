@@ -6,6 +6,8 @@ module "label" {
   source  = "cloudposse/label/null"
   version = "0.25.0"
 
+  enabled = var.enabled
+
   attributes = var.attributes == null ? var.context.attributes : var.attributes
   name       = var.name == null ? var.context.name : var.name
   namespace  = var.namespace == null ? var.context.namespace : var.namespace

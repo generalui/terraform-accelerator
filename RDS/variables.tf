@@ -16,6 +16,17 @@ variable "allowed_cidr_blocks" {
   description = "The whitelisted CIDRs which to allow `ingress` traffic to the DB instance"
 }
 
+variable "attributes" {
+  type        = list(string)
+  default     = []
+  description = <<-EOT
+    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,
+    in the order they appear in the list. New attributes are appended to the
+    end of the list. The elements of the list are joined by the `delimiter`
+    and treated as a single ID element.
+    EOT
+}
+
 variable "apply_immediately" {
   type        = bool
   description = "Specifies whether any database modifications are applied immediately, or during the next maintenance window"
@@ -128,6 +139,12 @@ variable "db_parameter_group" {
   description = "The DB parameter group family name. The value depends on DB engine used. See [DBParameterGroupFamily](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBParameterGroup.html#API_CreateDBParameterGroup_RequestParameters) for instructions on how to retrieve applicable value."
   # "mysql5.6"
   # "postgres9.5"
+}
+
+variable "db_subnet_group_name" {
+  type        = string
+  default     = null
+  description = "Name of DB subnet group. DB instance will be created in the VPC associated with the DB subnet group. Specify one of `subnet_ids` or `db_subnet_group_name`"
 }
 
 variable "deletion_protection" {
@@ -267,7 +284,7 @@ variable "storage_type" {
 }
 
 variable "subnet_ids" {
-  description = "List of subnet IDs for the DB. DB instance will be created in the VPC associated with the DB subnet group provisioned using the subnet IDs. Specify one of `subnet_ids`, `db_subnet_group_name` or `availability_zone`"
+  description = "List of subnet IDs for the DB. DB instance will be created in the VPC associated with the DB subnet group provisioned using the subnet IDs. Specify one of `subnet_ids` or `db_subnet_group_name`"
   type        = list(string)
   default     = []
 }

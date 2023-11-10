@@ -11,18 +11,22 @@ module "security_group" {
   # reuse the label as-is for more than one security group in the VPC.
   #
   # Add an attribute to give the Security Group a unique name
-  attributes = var.attributes
+  attributes = var.attributes == null ? var.context.attributes : var.attributes
+  enabled    = var.enabled == null ? var.context.enabled : var.enabled
   name       = var.name == null ? var.context.name : var.name
   namespace  = var.namespace == null ? var.context.namespace : var.namespace
   stage      = var.stage == null ? var.context.stage : var.stage
 
   allow_all_egress              = var.allow_all_egress
+  preserve_security_group_id    = var.preserve_security_group_id
   revoke_rules_on_delete        = var.revoke_rules_on_delete
   rule_matrix                   = var.rule_matrix
   rules                         = var.rules
   rules_map                     = var.rules_map
   security_group_create_timeout = var.security_group_create_timeout
   security_group_delete_timeout = var.security_group_delete_timeout
+  security_group_description    = var.security_group_description
+  security_group_name           = var.security_group_name_prefix
   vpc_id                        = var.vpc_id
 
   tags = var.tags == null ? var.context.tags : var.tags
