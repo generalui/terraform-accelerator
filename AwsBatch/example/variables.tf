@@ -71,7 +71,7 @@ variable "namespace" {
 variable "project" {
   type        = string
   description = "Name of the project as a whole"
-  default     = "awsbatch"
+  default     = "AwsBatch"
 }
 
 variable "tags" {
