@@ -1,0 +1,182 @@
+name: Create Module Releases
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate_release:
+    name: Validate releases
+    # Validating releases should not take more that 1 minute.
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+    outputs:
+      version_tags: ${{ steps.version.outputs.version_tags }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files_ignore: |
+            .github/**/*
+            .vscode/**/*
+            doc_assets/**/*
+            ExampleMashups/**/*
+            .gitignore
+            .markdownlint*
+            .tool-versions
+            *.code-workspace
+            *.md
+            **/LICENSE
+
+      - name: Get changed Module names
+        id: modules
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          modules=()
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "${file} was changed"
+            # Get the root folder name of the changed file, this will be the module name.
+            module_name=$(echo ${file} | cut -d'/' -f1)
+            if [[ ! "${modules[@]}" =~ "${module_name}" ]]; then
+              modules+=("${module_name}")
+            fi
+          done
+          module_names_json=$(jq -c -n '$ARGS.positional' --args "${modules[@]}")
+          echo "module_names=${module_names_json}" >> $GITHUB_OUTPUT
+
+          echo "::group::Modules"
+          echo "Modules:"
+          echo "${modules[*]}"
+          echo "::endgroup::"
+
+          echo "::group::Module Names"
+          echo "Module Names: ${module_names_json}"
+          echo "::endgroup::"
+
+      - name: Version and Release Setup
+        run: |
+          modules=($(jq -r '.[]' <<<'${{ steps.modules.outputs.module_names }}'))
+
+          version_tags=""
+          version_tags_check=""
+          for module in "${modules[@]}"; do
+            version=$(cat "${module}"/project.json | jq -r '.version')
+            version_tags="${version_tags},\"${version}:${module}\""
+            version_tags_check="${version_tags},\"${version}-${module}\""
+          done
+
+          version_tags="${version_tags:1}"
+          echo "version_tags=[${version_tags}]" >> $GITHUB_OUTPUT
+
+          echo "::group::Version Tags"
+          echo "Version Tags: [${version_tags}]"
+          echo "::endgroup::"
+
+          # Remove the first comma
+          version_tags_check="${version_tags_check:1}"
+          echo "version_tags_check=[${version_tags_check}]" >> $GITHUB_OUTPUT
+
+          echo "::group::Check Version Tags"
+          echo "Version Tags to Check: [${version_tags_check}]"
+          echo "::endgroup::"
+        shell: bash
+        id: version
+
+      - name: Check for Tags
+        run: |
+          tags=($(jq -r '.[]' <<<'${{ steps.version.outputs.version_tags_check }}'))
+
+          for tag in "${tags[@]}"; do
+            if git show-ref --tags --verify --quiet "refs/tags/${tag}"; then
+                echo "The tag ${tag} already exists, ensure you have incremented the version in project.json."
+                exit 1
+            fi
+          done
+          echo "Proceeding."
+        shell: bash
+
+  release:
+    name: Create releases
+    # Creating releases should not take more that 1 minute.
+    timeout-minutes: 1
+    needs: [ validate_release ]
+    if: ${{ needs.validate_release.outputs.version_tags != '[]' && needs.validate_release.outputs.version_tags != '' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version_tag: ${{ fromJSON(needs.validate_release.outputs.version_tags) }}
+    steps:
+      - name: Get job info
+        uses: ohgod-ai/eo-actions/.github/actions/job-info@job-info-1.0.1
+        id: info
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ steps.info.outputs.branch }}
+
+      - name: Get previous tag, push new tag
+        id: image-tags
+        run: |
+          git checkout ${{ steps.info.outputs.branch }}
+          # Push the new tag
+          git tag "${version_tag}"
+          git push origin tag "${version_tag}"
+
+          # Get all tags sorted by version, filtered by the module name
+          previous_tag=$(git tag --sort=-v:refname | grep -E "^[0-9]+\.[0-9]+\.[0-9]+-${module_name}$" | head -n 1)
+
+          echo "previous_tag=${previous_tag}" >> $GITHUB_OUTPUT
+
+          echo "::group::Previous Tag"
+          echo "Previous Tag: ${previous_tag}"
+          echo "::endgroup::"
+
+          if [[ -z "${previous_tag}" ]]; then
+            # Extract the module name from the version tag
+            module_name=$(echo "${{ matrix.version_tag }}" | cut -d':' -f2)
+            # Extract the module version from the version tag
+            version=$(echo "${{ matrix.version_tag }}" | cut -d':' -f1)
+            version_tag="${version}-${module_name}"
+
+            echo "new_tag=${version_tag}" >> $GITHUB_OUTPUT
+
+            echo "::group::New Tag"
+            echo "New Tag: ${version_tag}"
+            echo "::endgroup::"
+          else
+            # Exit the script if the previous tag is not found
+            echo "No previous tag found, exiting."
+            exit 1
+          fi
+        shell: bash
+
+      - name: Create/Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          excludeTypes: ""
+          fromTag: ${{ steps.image-tags.outputs.previous_tag != '' && steps.image-tags.outputs.new_tag || '' }}
+          includeInvalidCommits: true
+          tag: ${{ steps.image-tags.outputs.previous_tag == '' && steps.image-tags.outputs.new_tag || '' }}
+          toTag: ${{ steps.image-tags.outputs.previous_tag != '' && steps.image-tags.outputs.previous_tag || '' }}
+          token: ${{ github.token }}
+          writeToFile: false
+
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          body: ${{ steps.changelog.outputs.changes }}
+          makeLatest: false
+          name: "Version ${{ steps.image-tags.outputs.new_tag }}"
+          prerelease: false
+          skipIfReleaseExists: true
+          tag: ${{ steps.image-tags.outputs.new_tag }}

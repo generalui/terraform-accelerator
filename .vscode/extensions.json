@@ -1,14 +1,18 @@
 {
     "recommendations": [
-        "amazonwebservices.aws-toolkit-vscode",
+        "adam-bender.commit-message-editor",
         "bierner.markdown-preview-github-styles",
-        "DanielSanMedium.dscodegpt",
         "DavidAnson.vscode-markdownlint",
         "eamodio.gitlens",
+        "foxundermoon.shell-format",
         "github.vscode-github-actions",
         "hashicorp.terraform",
         "mikestead.dotenv",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
         "shardulm94.trailing-spaces",
-        "streetsidesoftware.code-spell-checker"
+        "sourcegraph.cody-ai",
+        "streetsidesoftware.code-spell-checker",
+        "timonwong.shellcheck"
     ]
 }
