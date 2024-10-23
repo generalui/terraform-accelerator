@@ -1,0 +1,74 @@
+# AWS ElastiCache
+# See https://registry.terraform.io/modules/cloudposse/elasticache-redis/aws/1.4.1
+
+module "elasticache_redis" {
+  source  = "cloudposse/elasticache-redis/aws"
+  version = "1.4.1"
+
+  context = module.this.context
+
+  additional_security_group_rules      = var.additional_security_group_rules
+  alarm_actions                        = var.alarm_actions
+  alarm_cpu_threshold_percent          = var.alarm_cpu_threshold_percent
+  alarm_memory_threshold_bytes         = var.alarm_memory_threshold_bytes
+  allow_all_egress                     = var.allow_all_egress
+  allowed_security_group_ids           = var.allowed_security_group_ids
+  apply_immediately                    = var.apply_immediately
+  associated_security_group_ids        = var.associated_security_group_ids
+  at_rest_encryption_enabled           = var.at_rest_encryption_enabled
+  auth_token                           = var.auth_token
+  auth_token_update_strategy           = var.auth_token_update_strategy
+  auto_minor_version_upgrade           = var.auto_minor_version_upgrade
+  automatic_failover_enabled           = var.automatic_failover_enabled
+  availability_zones                   = var.availability_zones
+  cloudwatch_metric_alarms_enabled     = var.cloudwatch_metric_alarms_enabled
+  cluster_mode_enabled                 = var.cluster_mode_enabled
+  cluster_mode_num_node_groups         = var.cluster_mode_num_node_groups
+  cluster_mode_replicas_per_node_group = var.cluster_mode_replicas_per_node_group
+  cluster_size                         = var.cluster_size
+  create_parameter_group               = var.create_parameter_group
+  create_security_group                = var.create_security_group
+  data_tiering_enabled                 = var.data_tiering_enabled
+  description                          = var.description
+  dns_subdomain                        = var.dns_subdomain
+  elasticache_subnet_group_name        = var.elasticache_subnet_group_name
+  engine_version                       = var.engine_version
+  family                               = var.family
+  final_snapshot_identifier            = var.final_snapshot_identifier
+  inline_rules_enabled                 = var.inline_rules_enabled
+  instance_type                        = var.instance_type
+  kms_key_id                           = var.kms_key_id
+  log_delivery_configuration           = var.log_delivery_configuration
+  maintenance_window                   = var.maintenance_window
+  multi_az_enabled                     = var.multi_az_enabled
+  notification_topic_arn               = var.notification_topic_arn
+  ok_actions                           = var.ok_actions
+  parameter                            = var.parameter
+  parameter_group_description          = var.parameter_group_description
+  parameter_group_name                 = var.parameter_group_name
+  port                                 = var.port
+  preserve_security_group_id           = var.preserve_security_group_id
+  replication_group_id                 = var.replication_group_id
+  revoke_rules_on_delete               = var.revoke_rules_on_delete
+  security_group_create_before_destroy = var.security_group_create_before_destroy
+  security_group_create_timeout        = var.security_group_create_timeout
+  security_group_delete_timeout        = var.security_group_delete_timeout
+  security_group_description           = var.security_group_description
+  security_group_name                  = var.security_group_name
+  serverless_cache_usage_limits        = var.serverless_cache_usage_limits
+  serverless_enabled                   = var.serverless_enabled
+  serverless_major_engine_version      = var.serverless_major_engine_version
+  serverless_snapshot_time             = var.serverless_snapshot_time
+  serverless_user_group_id             = var.serverless_user_group_id
+  snapshot_arns                        = var.snapshot_arns
+  snapshot_name                        = var.snapshot_name
+  snapshot_retention_limit             = var.snapshot_retention_limit
+  snapshot_window                      = var.snapshot_window
+  subnets                              = var.subnets
+  target_security_group_id             = var.target_security_group_id
+  transit_encryption_enabled           = var.transit_encryption_enabled
+  transit_encryption_mode              = var.transit_encryption_mode
+  user_group_ids                       = var.user_group_ids
+  zone_id                              = var.zone_id
+  vpc_id                               = var.vpc_id
+}
