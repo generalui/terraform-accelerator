@@ -164,7 +164,7 @@ variable "namespace" {
 variable "project" {
   type        = string
   description = "Name of the project as a whole"
-  default     = "HealthEvents"
+  default     = "AwsHealthEvents"
 }
 
 variable "tags" {
