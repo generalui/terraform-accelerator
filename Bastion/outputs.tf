@@ -4,13 +4,23 @@ output "arn" {
 }
 
 output "bastion_access_group" {
-  value       = join("", aws_iam_group.bastion_access.name)
+  value       = aws_iam_group.bastion_access.name
   description = "Name of AWS IAM Group that is allowed access to the instance"
 }
 
 output "bastion_access_group_arn" {
-  value       = join("", aws_iam_group.bastion_access.arn)
+  value       = aws_iam_group.bastion_access.arn
   description = "ARN of AWS IAM Group that is allowed access to the instance"
+}
+
+output "bastion_access_policy_arn" {
+  value       = module.bastion_access_policy.arn
+  description = "ARN of AWS IAM policy that allows access to the instance"
+}
+
+output "bastion_access_policy_json" {
+  value       = module.bastion_access_policy.json
+  description = "JSON of AWS IAM policy that allows access to the instance"
 }
 
 output "hostname" {

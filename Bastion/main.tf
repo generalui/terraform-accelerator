@@ -1,24 +1,9 @@
 # AWS EC2 Bastion Server
 # Terraform module to define a generic Bastion host with parameterized `user_data` and support for AWS SSM Session Manager for remote access with IAM authentication.
 
-locals {
-  create_instance_profile = module.this.enabled && try(length(var.instance_profile), 0) == 0
-  instance_profile        = local.create_instance_profile ? join("", aws_iam_instance_profile.default.*.name) : var.instance_profile
-  eip_enabled             = var.associate_public_ip_address && var.assign_eip_address && module.this.enabled
-  security_group_enabled  = module.this.enabled && var.security_group_enabled
-  public_dns              = local.eip_enabled ? local.public_dns_rendered : join("", aws_instance.default.*.public_dns)
-  public_dns_rendered = local.eip_enabled ? format("ec2-%s.%s.amazonaws.com",
-    replace(join("", aws_eip.default.*.public_ip), ".", "-"),
-    data.aws_region.default.name == "us-east-1" ? "compute-1" : format("%s.compute", data.aws_region.default.name)
-  ) : null
-  user_data_templated = templatefile("${path.module}/${var.user_data_template}", {
-    user_data   = join("\n", var.user_data)
-    ssm_enabled = var.ssm_enabled
-    ssh_user    = var.ssh_user
-  })
-}
-
 data "aws_region" "default" {}
+
+data "aws_caller_identity" "current" {}
 
 data "aws_ami" "default" {
   count = module.this.enabled && var.ami == null ? 1 : 0
@@ -105,7 +90,7 @@ resource "aws_eip" "default" {
 }
 
 module "dns" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//Route53HostName?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Route53HostName?ref=1.0.0-Route53HostName"
 
   enabled  = module.this.enabled && try(length(var.zone_id), 0) > 0 ? true : false
   zone_id  = var.zone_id
@@ -126,7 +111,7 @@ resource "aws_iam_group_policy_attachment" "bastion_access" {
 }
 
 module "bastion_access_policy" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//IamPolicy?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.0-IamPolicy"
 
   name    = "${module.this.id}-access"
   context = module.this.context
@@ -141,15 +126,15 @@ module "bastion_access_policy" {
         effect  = "Allow"
         actions = ["ssm:StartSession"]
         resources = [
-          "arn:aws:ec2:${var.aws_region}:${var.aws_account_id}:instance/${aws_instance.default[0].id}",
-          "arn:aws:ssm:${var.aws_region}::document/AWS-StartPortForwardingSessionToRemoteHost"
+          "arn:aws:ec2:${data.aws_region.default.name}:${local.account_id}:instance/${aws_instance.default[0].id}",
+          "arn:aws:ssm:${data.aws_region.default.name}::document/AWS-StartPortForwardingSessionToRemoteHost"
         ]
       },
       {
         sid       = "EndSsmSession"
         effect    = "Allow"
         actions   = ["ssm:TerminateSession"]
-        resources = ["arn:aws:ssm:${var.aws_region}:${var.aws_account_id}:session/*"]
+        resources = ["arn:aws:ssm:${data.aws_region.default.name}:${local.account_id}:session/*"]
       }
     ]
   }]
