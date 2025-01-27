@@ -114,7 +114,7 @@ jobs:
         version_tag: ${{ fromJSON(needs.validate_release.outputs.version_tags) }}
     steps:
       - name: Get job info
-        uses: ohgod-ai/eo-actions/.github/actions/job-info@job-info-1.0.1
+        uses: generalui/github-workflow-accelerators/.github/actions/job-info@1.0.1-job-info
         id: info
 
       - name: Checkout code
