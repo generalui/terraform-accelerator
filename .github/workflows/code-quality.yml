@@ -107,7 +107,7 @@ jobs:
         with:
           files: |
             **/*.md
-            .github/workflows/codde-quality.yml
+            .github/workflows/code-quality.yml
 
       - name: Lint all Documentation
         if: steps.changed-markdown.outputs.any_modified == 'true'
