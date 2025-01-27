@@ -25,7 +25,7 @@ data "aws_caller_identity" "current" {}
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//Label?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -38,7 +38,7 @@ module "this" {
 }
 
 module "write_iam_role" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//IamRole?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.1-IamRole"
 
   name    = "example-ecr-write-access-role"
   context = module.this.context
@@ -52,7 +52,7 @@ module "write_iam_role" {
 }
 
 module "read_iam_role" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//IamRole?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.1-IamRole"
 
   name    = "example-ecr-read-access-role"
   context = module.this.context
@@ -71,7 +71,8 @@ module "ecr" {
   name    = "example-ecr"
   context = module.this.context
 
-  principals_readonly_access = [module.read_iam_role.arn, module.write_iam_role.arn]
+  principals_readonly_access = [module.read_iam_role.arn]
+  principals_push_access     = [module.write_iam_role.arn]
 }
 
 # Variables
@@ -124,7 +125,7 @@ variable "context" {
 variable "environment_name" {
   type        = string
   description = "Current environment, e.g. 'prod', 'staging', 'dev', 'QA', 'performance'"
-  default     = "dev"
+  default     = "example"
   validation {
     condition     = length(var.environment_name) < 8
     error_message = "The environment_name value must be less than 8 characters"
@@ -133,7 +134,7 @@ variable "environment_name" {
 
 variable "namespace" {
   type        = string
-  default     = "test"
+  default     = "xmpl"
   description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
 }
 

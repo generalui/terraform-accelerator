@@ -5,17 +5,6 @@ variable "access_key_enabled" {
   nullable    = false
 }
 
-variable "acl" {
-  type        = string
-  default     = "private"
-  description = <<-EOT
-    The [canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) to apply.
-    Deprecated by AWS in favor of bucket policies.
-    Automatically disabled if `s3_object_ownership` is set to "BucketOwnerEnforced".
-    Defaults to "private" for backwards compatibility, but we recommend setting `s3_object_ownership` to "BucketOwnerEnforced" instead.
-    EOT
-}
-
 variable "allowed_bucket_actions" {
   type        = list(string)
   default     = ["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:DeleteObject", "s3:ListBucket", "s3:ListBucketMultipartUploads", "s3:GetBucketLocation", "s3:AbortMultipartUpload"]
@@ -67,25 +56,6 @@ variable "bucket_name" {
   description = "Bucket name. If provided, the bucket will be created with this name instead of generating the name from the context"
 }
 
-variable "context" {
-  type = any
-  default = {
-    attributes = []
-    name       = null
-    namespace  = null
-    stage      = null
-    tags       = {}
-  }
-  description = <<-EOT
-    Single object for setting entire context at once.
-    See description of individual variables for details.
-    Leave string and numeric variables as `null` to use default value.
-    Individual variable settings (non-null) override settings in context object,
-    except for attributes, tags, and additional_tag_map, which are merged.
-  EOT
-}
-
-
 variable "cors_configuration" {
   type = list(object({
     id              = optional(string)
@@ -106,24 +76,6 @@ variable "force_destroy" {
   description = <<-EOT
     When `true`, permits a non-empty S3 bucket to be deleted by first deleting all objects in the bucket.
     THESE OBJECTS ARE NOT RECOVERABLE even if they were versioned and stored in Glacier.
-    EOT
-  nullable    = false
-}
-
-variable "grants" {
-  type = list(object({
-    id          = string
-    type        = string
-    permissions = list(string)
-    uri         = string
-  }))
-  default = []
-
-  description = <<-EOT
-    A list of policy grants for the bucket, taking a list of permissions.
-    Conflicts with `acl`. Set `acl` to `null` to use this.
-    Deprecated by AWS in favor of bucket policies.
-    Automatically disabled if `s3_object_ownership` is set to "BucketOwnerEnforced".
     EOT
   nullable    = false
 }
@@ -195,22 +147,6 @@ variable "logging" {
   nullable    = false
 }
 
-variable "name" {
-  type        = string
-  default     = null
-  description = <<-EOT
-    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.
-    This is the only ID element not also included as a `tag`.
-    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.
-    EOT
-}
-
-variable "namespace" {
-  type        = string
-  default     = null
-  description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
-}
-
 variable "object_lock_configuration" {
   type = object({
     mode  = string # Valid values are GOVERNANCE and COMPLIANCE.
@@ -221,10 +157,7 @@ variable "object_lock_configuration" {
   description = "A configuration for S3 object locking. With S3 Object Lock, you can store objects using a `write once, read many` (WORM) model. Object Lock can help prevent objects from being deleted or overwritten for a fixed amount of time or indefinitely."
 }
 
-# Need input to be a list to fix https://github.com/cloudposse/terraform-aws-s3-bucket/issues/102
 variable "privileged_principal_arns" {
-  #  type        = map(list(string))
-  #  default     = {}
   type    = list(map(list(string)))
   default = []
 
@@ -385,12 +318,6 @@ variable "ssm_base_path" {
   nullable    = false
 }
 
-variable "stage" {
-  type        = string
-  default     = null
-  description = "ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'"
-}
-
 variable "store_access_key_in_ssm" {
   type        = bool
   default     = false
@@ -401,15 +328,6 @@ variable "store_access_key_in_ssm" {
     use of SSM Parameter Store is recommended.
     EOT
   nullable    = false
-}
-
-variable "tags" {
-  type        = map(string)
-  default     = {}
-  description = <<-EOT
-    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).
-    Neither the tag keys nor the tag values will be modified by this module.
-    EOT
 }
 
 variable "transfer_acceleration_enabled" {

@@ -4,35 +4,6 @@ variable "assign_generated_ipv6_cidr_block" {
   default     = true
 }
 
-variable "attributes" {
-  type        = list(string)
-  default     = []
-  description = <<-EOT
-    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,
-    in the order they appear in the list. New attributes are appended to the
-    end of the list. The elements of the list are joined by the `delimiter`
-    and treated as a single ID element.
-    EOT
-}
-
-variable "context" {
-  type = any
-  default = {
-    attributes = []
-    name       = null
-    namespace  = null
-    stage      = null
-    tags       = {}
-  }
-  description = <<-EOT
-    Single object for setting entire context at once.
-    See description of individual variables for details.
-    Leave string and numeric variables as `null` to use default value.
-    Individual variable settings (non-null) override settings in context object,
-    except for attributes, tags, and additional_tag_map, which are merged.
-  EOT
-}
-
 variable "default_network_acl_deny_all" {
   type        = bool
   default     = false
@@ -118,7 +89,7 @@ variable "ipv4_primary_cidr_block" {
     The primary IPv4 CIDR block for the VPC.
     Either `ipv4_primary_cidr_block` or `ipv4_primary_cidr_block_association` must be set, but not both.
     EOT
-  default     = null
+  default     = "10.0.0.0/16"
 }
 
 variable "ipv4_primary_cidr_block_association" {
@@ -183,35 +154,4 @@ variable "ipv6_primary_cidr_block_association" {
     `ipv6_cidr_block` can be set explicitly, or set to `null` with the CIDR block derived from `ipv6_ipam_pool_id` using `ipv6_netmask_length`.
     EOT
   default     = null
-}
-
-variable "name" {
-  type        = string
-  default     = null
-  description = <<-EOT
-    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.
-    This is the only ID element not also included as a `tag`.
-    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.
-    EOT
-}
-
-variable "namespace" {
-  type        = string
-  default     = null
-  description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
-}
-
-variable "stage" {
-  type        = string
-  default     = null
-  description = "ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'"
-}
-
-variable "tags" {
-  type        = map(string)
-  default     = {}
-  description = <<-EOT
-    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).
-    Neither the tag keys nor the tag values will be modified by this module.
-    EOT
 }

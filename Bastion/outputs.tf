@@ -1,30 +1,40 @@
 output "arn" {
   description = "ARN of the instance"
-  value       = join("", aws_instance.default.*.arn)
+  value       = try(aws_instance.default[0].arn, null)
 }
 
 output "bastion_access_group" {
-  value       = join("", aws_iam_group.bastion_access.name)
+  value       = try(aws_iam_group.bastion_access[0].name, null)
   description = "Name of AWS IAM Group that is allowed access to the instance"
 }
 
 output "bastion_access_group_arn" {
-  value       = join("", aws_iam_group.bastion_access.arn)
+  value       = try(aws_iam_group.bastion_access[0].arn, null)
   description = "ARN of AWS IAM Group that is allowed access to the instance"
 }
 
+output "bastion_access_policy_arn" {
+  value       = try(module.bastion_access_policy[0].arn, null)
+  description = "ARN of AWS IAM policy that allows access to the instance"
+}
+
+output "bastion_access_policy_json" {
+  value       = try(module.bastion_access_policy[0].json, null)
+  description = "JSON of AWS IAM policy that allows access to the instance"
+}
+
 output "hostname" {
-  value       = module.dns.hostname
+  value       = try(module.dns[0].hostname, null)
   description = "DNS hostname"
 }
 
 output "id" {
   description = "Disambiguated ID of the instance"
-  value       = join("", aws_instance.default.*.id)
+  value       = try(aws_instance.default[0].id, null)
 }
 
 output "instance_id" {
-  value       = join("", aws_instance.default.*.id)
+  value       = try(aws_instance.default[0].id, null)
   description = "Instance ID"
 }
 
@@ -35,17 +45,17 @@ output "name" {
 
 output "private_dns" {
   description = "Private DNS of instance"
-  value       = join("", aws_instance.default.*.private_dns)
+  value       = try(aws_instance.default[0].private_dns, null)
 }
 
 output "private_ip" {
-  value       = join("", aws_instance.default.*.private_ip)
+  value       = try(aws_instance.default[0].private_ip, null)
   description = "Private IP of the instance"
 }
 
 output "public_dns" {
   description = "Public DNS of instance (or DNS of EIP)"
-  value       = local.public_dns
+  value       = try(local.public_dns, null)
 }
 
 output "public_ip" {

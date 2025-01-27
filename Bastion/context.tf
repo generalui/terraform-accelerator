@@ -6,7 +6,7 @@
 #
 
 module "this" {
-  source = "../Label"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   enabled    = var.enabled
   namespace  = var.namespace

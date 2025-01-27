@@ -180,6 +180,10 @@ variable "package_type" {
   type        = string
   description = "The Lambda deployment package type. Valid values are Zip and Image."
   default     = "Zip"
+  validation {
+    condition     = contains(["Image", "Zip"], var.package_type)
+    error_message = "package_type must be either Image or Zip"
+  }
 }
 
 variable "permissions_boundary" {

@@ -5,12 +5,281 @@
 		}
 	],
 	"settings": {
+		"cody.codebase": "git@github.com:generalui/terraform-accelerator.git",
+		"cody.autocomplete.languages": {
+			"markdown": true,
+			"python3": true,
+			"shellscript": true,
+			"terraform": true,
+		},
+		"[dockerfile]": {
+			"editor.defaultFormatter": "ms-azuretools.vscode-docker"
+		},
 		"editor.formatOnSave": true,
 		"editor.wordWrap": "on",
 		"files.associations": {
-			".env-*": "dotenv"
+			".env-*": "dotenv",
+			".markdownlintignore": "ignore",
+			"*.tfstate.backup": "jsonc",
+			"*.hcl": "terraform",
+			"*.tf": "terraform",
 		},
 		"files.eol": "\n",
-		"workbench.editor.highlightModifiedTabs": true
+		"[shellscript]": {
+			"editor.defaultFormatter": "foxundermoon.shell-format"
+		},
+		"[terraform]": {
+			"editor.defaultFormatter": "hashicorp.terraform",
+			"editor.formatOnSave": true,
+			"editor.codeActionsOnSave": {
+				"source.formatAll.terraform": "explicit"
+			},
+		},
+		"[terraform][terraform-vars]": {
+			"editor.codeActionsOnSave": {
+				"source.formatAll.terraform": "explicit"
+			}
+		},
+		"[terraform-vars]": {
+			"editor.defaultFormatter": "hashicorp.terraform",
+			"editor.formatOnSave": false,
+			"editor.codeActionsOnSave": {
+				"source.formatAll.terraform": "explicit"
+			},
+		},
+		"workbench.editor.highlightModifiedTabs": true,
+		"commit-message-editor.staticTemplate": [
+			"[Module] feat: Short description",
+			"",
+			"Message body",
+			"",
+			"Message footer"
+		],
+		"commit-message-editor.dynamicTemplate": [
+			"[{module}] {type}{scope}: {description}",
+			"",
+			"{body}",
+			"",
+			"{breaking_change}{footer}"
+		],
+		"commit-message-editor.tokens": [
+			{
+				"label": "module",
+				"name": "module",
+				"type": "enum",
+				"description": "Terraform Modules",
+				"options": [
+					{
+						"label": "General",
+						"value": "General",
+						"description": "Changes to all code or the repo itself"
+					},
+					{
+						"label": "ALB",
+						"value": "ALB",
+						"description": "The ALB Module"
+					},
+					{
+						"label": "AwsBatch",
+						"value": "AwsBatch",
+						"description": "The AwsBatch Module"
+					},
+					{
+						"label": "AwsHealthEvents",
+						"value": "AwsHealthEvents",
+						"description": "The AwsHealthEvents Module"
+					},
+					{
+						"label": "Bastion",
+						"value": "Bastion",
+						"description": "The Bastion Module"
+					},
+					{
+						"label": "Cognito",
+						"value": "Cognito",
+						"description": "The Cognito Module"
+					},
+					{
+						"label": "ECR",
+						"value": "ECR",
+						"description": "The ECR Module"
+					},
+					{
+						"label": "EcsCluster",
+						"value": "EcsCluster",
+						"description": "The EcsCluster Module"
+					},
+					{
+						"label": "IamPolicy",
+						"value": "IamPolicy",
+						"description": "The IamPolicy Module"
+					},
+					{
+						"label": "IamRole",
+						"value": "IamRole",
+						"description": "The IamRole Module"
+					},
+					{
+						"label": "KeyPair",
+						"value": "KeyPair",
+						"description": "The KeyPair Module"
+					},
+					{
+						"label": "KmsKey",
+						"value": "KmsKey",
+						"description": "The KmsKey Module"
+					},
+					{
+						"label": "Label",
+						"value": "Label",
+						"description": "The Label Module"
+					},
+					{
+						"label": "Lambda",
+						"value": "Lambda",
+						"description": "The Lambda Module"
+					},
+					{
+						"label": "RDS",
+						"value": "RDS",
+						"description": "The RDS Module"
+					},
+					{
+						"label": "Route53HostName",
+						"value": "Route53HostName",
+						"description": "The Route53HostName Module"
+					},
+					{
+						"label": "S3",
+						"value": "S3",
+						"description": "The S3 Module"
+					},
+					{
+						"label": "SecretsManager",
+						"value": "SecretsManager",
+						"description": "The SecretsManager Module"
+					},
+					{
+						"label": "SecurityGroup",
+						"value": "SecurityGroup",
+						"description": "The SecurityGroup Module"
+					},
+					{
+						"label": "SQS",
+						"value": "SQS",
+						"description": "The SQS Module"
+					},
+					{
+						"label": "Subnet",
+						"value": "Subnet",
+						"description": "The Subnet Module"
+					},
+					{
+						"label": "TerraformState",
+						"value": "TerraformState",
+						"description": "The TerraformState Module"
+					},
+					{
+						"label": "VPC",
+						"value": "VPC",
+						"description": "The VPC Module"
+					}
+				]
+			},
+			{
+				"label": "Type",
+				"name": "type",
+				"type": "enum",
+				"options": [
+					{
+						"label": "---",
+						"value": ""
+					},
+					{
+						"label": "build",
+						"description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)"
+					},
+					{
+						"label": "chore",
+						"description": "Updating grunt tasks etc; no production code change"
+					},
+					{
+						"label": "ci",
+						"description": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)"
+					},
+					{
+						"label": "docs",
+						"description": "Documentation only changes"
+					},
+					{
+						"label": "feat",
+						"description": "A new feature"
+					},
+					{
+						"label": "fix",
+						"description": "A bug fix"
+					},
+					{
+						"label": "perf",
+						"description": "A code change that improves performance"
+					},
+					{
+						"label": "refactor",
+						"description": "A code change that neither fixes a bug nor adds a feature"
+					},
+					{
+						"label": "revert"
+					},
+					{
+						"label": "style",
+						"description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
+					},
+					{
+						"label": "test",
+						"description": "Adding missing tests or correcting existing tests"
+					}
+				],
+				"description": "Type of changes"
+			},
+			{
+				"label": "Scope",
+				"name": "scope",
+				"description": "A scope may be provided to a commit’s type, to provide additional contextual information and is contained within parenthesis, e.g., \"feat(parser): add ability to parse arrays\".",
+				"type": "text",
+				"multiline": false,
+				"prefix": "(",
+				"suffix": ")"
+			},
+			{
+				"label": "Short description",
+				"name": "description",
+				"description": "Short description in the subject line.",
+				"type": "text",
+				"multiline": false
+			},
+			{
+				"label": "Body",
+				"name": "body",
+				"description": "Optional body",
+				"type": "text",
+				"multiline": true,
+				"lines": 5,
+				"maxLines": 10
+			},
+			{
+				"label": "Breaking change",
+				"name": "breaking_change",
+				"type": "boolean",
+				"value": "BREAKING CHANGE: ",
+				"default": false
+			},
+			{
+				"label": "Footer",
+				"name": "footer",
+				"description": "Optional footer",
+				"type": "text",
+				"multiline": true
+			}
+		]
 	}
 }

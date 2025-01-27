@@ -31,17 +31,6 @@ variable "assign_eip_address" {
   default     = true
 }
 
-variable "aws_account_id" {
-  type        = string
-  description = "The AWS account ID."
-}
-
-variable "aws_region" {
-  type        = string
-  description = "The AWS region."
-  default     = "us-east-2"
-}
-
 variable "disable_api_termination" {
   type        = bool
   description = "Enable EC2 Instance Termination Protection"

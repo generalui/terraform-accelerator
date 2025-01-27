@@ -15,6 +15,7 @@ module "kms_key" {
   deletion_window_in_days = var.deletion_window_in_days
   enable_key_rotation     = var.enable_key_rotation
   key_usage               = var.key_usage
+  policy                  = var.policy
 
   tags = var.tags == null ? var.context.tags : var.tags
 }

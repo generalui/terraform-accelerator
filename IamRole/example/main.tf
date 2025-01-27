@@ -21,9 +21,11 @@ provider "aws" {
   }
 }
 
+data "aws_region" "current" {}
+
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//Label?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -36,10 +38,11 @@ module "this" {
 }
 
 module "policy" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//IamPolicy?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
 
-  name    = "${module.this.id}-access"
-  context = module.this.context
+  iam_policy_enabled = true
+  name               = "ssm-port-forwarding"
+  context            = module.this.context
 
   description = "Allows port forwarding"
   iam_policy = [{
@@ -51,10 +54,65 @@ module "policy" {
         effect  = "Allow"
         actions = ["ssm:StartSession"]
         resources = [
-          "arn:aws:ssm:${var.aws_region}::document/AWS-StartPortForwardingSessionToRemoteHost"
+          "arn:aws:ssm:${local.region}::document/AWS-StartPortForwardingSessionToRemoteHost"
         ]
       }
     ]
+  }]
+}
+
+module "lambda_logging_policy" {
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
+
+  iam_policy_enabled = true
+  name               = "lambda-logging"
+  context            = module.this.context
+
+  description = "Pipeline: IAM policy for logging from lambdas"
+  iam_policy = [{
+    version   = "2012-10-17"
+    policy_id = "LambdaLogging"
+    statements = [{
+      sid    = "Logging"
+      effect = "Allow"
+      actions = [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ]
+      resources = ["arn:aws:logs:*:*:*"]
+    }]
+  }]
+}
+
+module "lambda_access_s3_policy" {
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
+
+  iam_policy_enabled = true
+  name               = "lambda-access-s3"
+  context            = module.this.context
+
+  description = "IAM policy to access the S3 bucket"
+  iam_policy = [{
+    version   = "2012-10-17"
+    policy_id = "LambdaAccessS3"
+    statements = [{
+      sid    = "S3ReadAccess"
+      effect = "Allow"
+      actions = [
+        "s3:GetObject",
+        "s3:GetObjectVersion"
+      ]
+      resources = ["arn:aws:s3:::eo-dev-intake/medias/*"]
+      }, {
+      sid    = "S3WriteAccess"
+      effect = "Allow"
+      actions = [
+        "s3:PutObject",
+        "s3:PutObjectAcl"
+      ]
+      resources = ["arn:aws:s3:::DOC-EXAMPLE-BUCKET/*"]
+    }]
   }]
 }
 
@@ -71,6 +129,42 @@ module "iam_role" {
     Service = ["ec2.amazonaws.com"]
   }
   role_description = "Example Role"
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_logging_policy" {
+  role       = module.batch_execution_role.name
+  policy_arn = module.lambda_logging_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_access_s3_policy" {
+  role       = module.batch_execution_role.name
+  policy_arn = module.lambda_access_s3_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "policy" {
+  role       = module.batch_execution_role.name
+  policy_arn = module.policy.arn
+}
+
+
+module "batch_execution_role" {
+  source = "../"
+
+  name    = "batch-execution"
+  context = module.this.context
+
+  role_description = "IAM role that the batch assumes to gain access to required resources."
+
+  principals = {
+    Service = ["batch.amazonaws.com"]
+  }
+
+  policy_document_count = 0
+  managed_policy_arns   = ["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"]
+}
+
+locals {
+  region = data.aws_region.current.name
 }
 
 # Variables
@@ -95,13 +189,14 @@ variable "aws_profile" {
 variable "aws_region" {
   type        = string
   description = "The AWS region."
-  default     = "us-east-2"
+  default     = "us-west-2"
 }
 
 variable "context" {
   type = any
   default = {
     attributes = []
+    enabled    = true
     name       = null
     namespace  = null
     stage      = null
@@ -119,7 +214,7 @@ variable "context" {
 variable "environment_name" {
   type        = string
   description = "Current environment, e.g. 'prod', 'staging', 'dev', 'QA', 'performance'"
-  default     = "dev"
+  default     = "test"
   validation {
     condition     = length(var.environment_name) < 8
     error_message = "The environment_name value must be less than 8 characters"
@@ -128,14 +223,14 @@ variable "environment_name" {
 
 variable "namespace" {
   type        = string
-  default     = "test"
+  default     = "xmpl"
   description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
 }
 
 variable "project" {
   type        = string
   description = "Name of the project as a whole"
-  default     = "MyProject"
+  default     = "Iam-Rule"
 }
 
 variable "tags" {

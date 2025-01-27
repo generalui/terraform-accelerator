@@ -77,7 +77,9 @@ Follow this procedure just once to create your deployment.
 
     Moving forward, Terraform will read this newly-created backend definition file.
 
-    If an error is returned with `error OperationAborted: A conflicting conditional operation is currently in progress against this resource. Please try again.`, ignore it and move on to the next step.
+    If an error is returned with
+    `error OperationAborted: A conflicting conditional operation is currently in progress against this resource. Please try again.`,
+    ignore it and move on to the next step.
 
 1. ```sh
     terraform init -force-copy
@@ -120,7 +122,9 @@ Follow this procedure to delete the deployment.
     terraform destroy
     ```
 
-    If an error is returned with `error OperationAborted: A conflicting conditional operation is currently in progress against this resource. Please try again.`, simply run `terraform destroy` again.
+    If an error is returned with
+    `error OperationAborted: A conflicting conditional operation is currently in progress against this resource. Please try again.`,
+    simply run `terraform destroy` again.
 
 1. Examine local state file `terraform.tfstate` to verify that it contains no resources.
     It should be similar to:
@@ -136,3 +140,7 @@ Follow this procedure to delete the deployment.
         "check_results": null
     }
     ```
+
+## Module Specs
+
+[SPECS.md](./SPECS.md)

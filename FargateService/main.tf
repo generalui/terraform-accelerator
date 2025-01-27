@@ -2,8 +2,10 @@ module "ecs_fargate_service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
   version = "2.0.41"
 
+  count = module.this.enabled ? 1 : 0
+
   additional_certificates_arn_for_https_listeners = var.additional_certificates_arn_for_https_listeners
-  container_name                                  = var.container_name
+  container_name                                  = var.container_name ? var.container_name : module.this.id
   default_certificate_arn                         = var.default_certificate_arn
   ecs_cluster_arn                                 = var.ecs_cluster_arn
   lb_internal                                     = var.lb_internal
@@ -14,5 +16,5 @@ module "ecs_fargate_service" {
   task_definition_arn                             = var.task_definition_arn
   vpc_id                                          = var.vpc_id
 
-  tags = var.tags
+  tags = module.this.tags
 }

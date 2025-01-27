@@ -21,11 +21,9 @@ provider "aws" {
   }
 }
 
-data "aws_caller_identity" "current" {}
-
-# This is the "context". It uses the Label module to help ensure consistant naming conventions.
+# This is the "context". It uses the Label module to help ensure consistent naming conventions.
 module "this" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//Label?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -38,7 +36,7 @@ module "this" {
 }
 
 module "vpc" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//VPC?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//VPC?ref=1.0.1-VPC"
 
   name    = "vpc"
   context = module.this.context
@@ -48,7 +46,7 @@ module "vpc" {
 
 module "subnets" {
   depends_on = [module.vpc]
-  source     = "git::git@github.com:ohgod-ai/eo-terraform.git//Subnet?ref=1.0.0"
+  source     = "git::git@github.com:generalui/terraform-accelerator.git//Subnet?ref=1.0.1-Subnet"
 
   name    = "subnet"
   context = module.this.context
@@ -66,8 +64,6 @@ module "bastion" {
   name    = "bastion"
   context = module.this.context
 
-  aws_account_id               = local.account_id
-  aws_region                   = var.aws_region
   disable_api_termination      = false
   ebs_block_device_volume_size = 1
   subnets                      = module.subnets.private_subnet_ids
@@ -75,10 +71,6 @@ module "bastion" {
 }
 
 # Variables
-
-locals {
-  account_id = data.aws_caller_identity.current.account_id
-}
 
 variable "attributes" {
   type        = list(string)
@@ -100,7 +92,7 @@ variable "aws_profile" {
 variable "aws_region" {
   type        = string
   description = "The AWS region."
-  default     = "us-east-2"
+  default     = "us-west-2"
 }
 
 variable "context" {
@@ -124,7 +116,7 @@ variable "context" {
 variable "environment_name" {
   type        = string
   description = "Current environment, e.g. 'prod', 'staging', 'dev', 'QA', 'performance'"
-  default     = "dev"
+  default     = "test"
   validation {
     condition     = length(var.environment_name) < 8
     error_message = "The environment_name value must be less than 8 characters"
@@ -133,14 +125,14 @@ variable "environment_name" {
 
 variable "namespace" {
   type        = string
-  default     = "test"
+  default     = "xmpl"
   description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
 }
 
 variable "project" {
   type        = string
   description = "Name of the project as a whole"
-  default     = "MyProject"
+  default     = "Bastion"
 }
 
 variable "tags" {
@@ -150,4 +142,11 @@ variable "tags" {
     Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).
     Neither the tag keys nor the tag values will be modified by this module.
     EOT
+}
+
+# Outputs
+
+output "bastion_id" {
+  value       = module.bastion.id
+  description = "Bastion ID"
 }

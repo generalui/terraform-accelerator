@@ -1,51 +1,64 @@
 # AWS RDS
-# See https://registry.terraform.io/modules/cloudposse/rds/aws/0.43.0
+# See https://registry.terraform.io/modules/cloudposse/rds/aws/1.1.1
 
 module "rds" {
   source  = "cloudposse/rds/aws"
-  version = "0.43.0"
+  version = "1.1.1"
 
-  attributes = var.attributes == null ? var.context.attributes : var.attributes
-  name       = var.name == null ? var.context.name : var.name
-  namespace  = var.namespace == null ? var.context.namespace : var.namespace
-  stage      = var.stage == null ? var.context.stage : var.stage
+  context = module.this.context
 
-  allocated_storage           = var.allocated_storage
-  allow_major_version_upgrade = var.allow_major_version_upgrade
-  apply_immediately           = var.apply_immediately
-  auto_minor_version_upgrade  = var.auto_minor_version_upgrade
-  backup_retention_period     = var.backup_retention_period
-  backup_window               = var.backup_window
-  copy_tags_to_snapshot       = var.copy_tags_to_snapshot
-  database_name               = var.database_name
-  database_user               = var.database_user
-  database_password           = var.database_password
-  database_port               = var.database_port
-  db_options                  = var.db_options
-  db_parameter                = var.db_parameter
-  db_parameter_group          = var.db_parameter_group
-  deletion_protection         = var.deletion_protection
-  engine                      = var.engine
-  engine_version              = var.engine_version
-  instance_class              = var.instance_class
-  kms_key_arn                 = var.kms_key_arn
-  maintenance_window          = var.maintenance_window
-  major_engine_version        = var.major_engine_version
-  max_allocated_storage       = var.max_allocated_storage
-  skip_final_snapshot         = var.skip_final_snapshot
-  snapshot_identifier         = var.snapshot_identifier
-  storage_type                = var.storage_type
-  storage_encrypted           = var.storage_encrypted
+  allocated_storage                     = var.allocated_storage
+  allow_major_version_upgrade           = var.allow_major_version_upgrade
+  apply_immediately                     = var.apply_immediately
+  auto_minor_version_upgrade            = var.auto_minor_version_upgrade
+  backup_retention_period               = var.backup_retention_period
+  backup_window                         = var.backup_window
+  copy_tags_to_snapshot                 = var.copy_tags_to_snapshot
+  enabled_cloudwatch_logs_exports       = var.enabled_cloudwatch_logs_exports
+  database_name                         = var.database_name
+  database_user                         = var.database_user
+  database_password                     = var.database_password
+  database_port                         = var.database_port
+  db_options                            = var.db_options
+  db_parameter                          = var.db_parameter
+  db_parameter_group                    = var.db_parameter_group
+  deletion_protection                   = var.deletion_protection
+  engine                                = var.engine
+  engine_version                        = var.engine_version
+  final_snapshot_identifier             = var.final_snapshot_identifier
+  iam_database_authentication_enabled   = var.iam_database_authentication_enabled
+  instance_class                        = var.instance_class
+  iops                                  = var.iops
+  kms_key_arn                           = var.kms_key_arn
+  maintenance_window                    = var.maintenance_window
+  major_engine_version                  = var.major_engine_version
+  max_allocated_storage                 = var.max_allocated_storage
+  monitoring_interval                   = var.monitoring_interval
+  monitoring_role_arn                   = var.monitoring_role_arn
+  parameter_group_name                  = var.parameter_group_name
+  performance_insights_enabled          = var.performance_insights_enabled
+  performance_insights_kms_key_id       = var.performance_insights_kms_key_id
+  performance_insights_retention_period = var.performance_insights_retention_period
+  replicate_source_db                   = var.replicate_source_db
+  restore_to_point_in_time              = var.restore_to_point_in_time
+  skip_final_snapshot                   = var.skip_final_snapshot
+  snapshot_identifier                   = var.snapshot_identifier
+  storage_encrypted                     = var.storage_encrypted
+  storage_throughput                    = var.storage_throughput
+  storage_type                          = var.storage_type
+  timeouts                              = var.timeouts
+  timezone                              = var.timezone
 
-  allowed_cidr_blocks  = var.allowed_cidr_blocks
-  ca_cert_identifier   = var.ca_cert_identifier
-  db_subnet_group_name = var.db_subnet_group_name
-  dns_zone_id          = var.dns_zone_id
-  host_name            = var.host_name
-  multi_az             = var.multi_az
-  option_group_name    = var.option_group_name
-  publicly_accessible  = var.publicly_accessible
-  security_group_ids   = var.security_group_ids
-  subnet_ids           = var.subnet_ids
-  vpc_id               = var.vpc_id
+  associate_security_group_ids = var.associate_security_group_ids
+  allowed_cidr_blocks          = var.allowed_cidr_blocks
+  ca_cert_identifier           = var.ca_cert_identifier
+  db_subnet_group_name         = var.db_subnet_group_name
+  dns_zone_id                  = var.dns_zone_id
+  host_name                    = var.host_name
+  multi_az                     = var.multi_az
+  option_group_name            = var.option_group_name
+  publicly_accessible          = var.publicly_accessible
+  security_group_ids           = var.security_group_ids
+  subnet_ids                   = var.subnet_ids
+  vpc_id                       = var.vpc_id
 }

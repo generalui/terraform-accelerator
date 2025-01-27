@@ -1,24 +1,9 @@
 # AWS EC2 Bastion Server
 # Terraform module to define a generic Bastion host with parameterized `user_data` and support for AWS SSM Session Manager for remote access with IAM authentication.
 
-locals {
-  create_instance_profile = module.this.enabled && try(length(var.instance_profile), 0) == 0
-  instance_profile        = local.create_instance_profile ? join("", aws_iam_instance_profile.default.*.name) : var.instance_profile
-  eip_enabled             = var.associate_public_ip_address && var.assign_eip_address && module.this.enabled
-  security_group_enabled  = module.this.enabled && var.security_group_enabled
-  public_dns              = local.eip_enabled ? local.public_dns_rendered : join("", aws_instance.default.*.public_dns)
-  public_dns_rendered = local.eip_enabled ? format("ec2-%s.%s.amazonaws.com",
-    replace(join("", aws_eip.default.*.public_ip), ".", "-"),
-    data.aws_region.default.name == "us-east-1" ? "compute-1" : format("%s.compute", data.aws_region.default.name)
-  ) : null
-  user_data_templated = templatefile("${path.module}/${var.user_data_template}", {
-    user_data   = join("\n", var.user_data)
-    ssm_enabled = var.ssm_enabled
-    ssh_user    = var.ssh_user
-  })
-}
-
 data "aws_region" "default" {}
+
+data "aws_caller_identity" "current" {}
 
 data "aws_ami" "default" {
   count = module.this.enabled && var.ami == null ? 1 : 0
@@ -60,7 +45,7 @@ resource "aws_instance" "default" {
   #bridgecrew:skip=BC_AWS_PUBLIC_12: Skipping `EC2 Should Not Have Public IPs` check. NAT instance requires public IP.
   #bridgecrew:skip=BC_AWS_GENERAL_31: Skipping `Ensure Instance Metadata Service Version 1 is not enabled` check until BridgeCrew support condition evaluation. See https://github.com/bridgecrewio/checkov/issues/793
   count                       = module.this.enabled ? 1 : 0
-  ami                         = coalesce(var.ami, join("", data.aws_ami.default.*.id))
+  ami                         = coalesce(var.ami, try(data.aws_ami.default[0].id, ""))
   instance_type               = var.instance_type
   user_data                   = length(var.user_data_base64) > 0 ? var.user_data_base64 : local.user_data_templated
   vpc_security_group_ids      = compact(concat(module.bastion_security_group.*.security_group_id, var.security_groups))
@@ -99,34 +84,37 @@ resource "aws_instance" "default" {
 
 resource "aws_eip" "default" {
   count    = local.eip_enabled ? 1 : 0
-  instance = join("", aws_instance.default.*.id)
+  instance = try(aws_instance.default[0].id, "")
   domain   = "vpc"
   tags     = module.this.tags
 }
 
 module "dns" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//Route53HostName?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Route53HostName?ref=1.0.1-Route53HostName"
 
   enabled  = module.this.enabled && try(length(var.zone_id), 0) > 0 ? true : false
   zone_id  = var.zone_id
   ttl      = 60
-  records  = var.associate_public_ip_address ? tolist([local.public_dns]) : tolist([join("", aws_instance.default.*.private_dns)])
+  records  = var.associate_public_ip_address ? [local.public_dns] : [try(aws_instance.default[0].private_dns, "")]
   context  = module.this.context
   dns_name = var.host_name
 }
 
 resource "aws_iam_group" "bastion_access" {
-  name = "${module.this.id}-access"
-  path = "/"
+  count = module.this.enabled ? 1 : 0
+  name  = "${module.this.id}-access"
+  path  = "/"
 }
 
 resource "aws_iam_group_policy_attachment" "bastion_access" {
-  group      = aws_iam_group.bastion_access.name
-  policy_arn = module.bastion_access_policy.arn
+  count      = module.this.enabled ? 1 : 0
+  group      = aws_iam_group.bastion_access[0].name
+  policy_arn = module.bastion_access_policy[0].arn
 }
 
 module "bastion_access_policy" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//IamPolicy?ref=1.0.0"
+  count  = module.this.enabled ? 1 : 0
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
 
   name    = "${module.this.id}-access"
   context = module.this.context
@@ -141,17 +129,17 @@ module "bastion_access_policy" {
         effect  = "Allow"
         actions = ["ssm:StartSession"]
         resources = [
-          "arn:aws:ec2:${var.aws_region}:${var.aws_account_id}:instance/${aws_instance.default[0].id}",
-          "arn:aws:ssm:${var.aws_region}::document/AWS-StartPortForwardingSessionToRemoteHost"
+          "arn:aws:ec2:${data.aws_region.default.name}:${local.account_id}:instance/${aws_instance.default[0].id}",
+          "arn:aws:ssm:${data.aws_region.default.name}::document/AWS-StartPortForwardingSessionToRemoteHost"
         ]
       },
       {
         sid       = "EndSsmSession"
         effect    = "Allow"
         actions   = ["ssm:TerminateSession"]
-        resources = ["arn:aws:ssm:${var.aws_region}:${var.aws_account_id}:session/*"]
+        resources = ["arn:aws:ssm:${data.aws_region.default.name}:${local.account_id}:session/*"]
       }
     ]
   }]
-  iam_policy_enabled = module.this.enabled
+  iam_policy_enabled = true
 }
