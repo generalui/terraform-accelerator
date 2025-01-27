@@ -127,12 +127,25 @@ jobs:
         id: image-tags
         run: |
           git checkout ${{ steps.info.outputs.branch }}
+
+          # Extract the module name from the version tag
+          module_name=$(echo "${{ matrix.version_tag }}" | cut -d':' -f2)
+          # Extract the module version from the version tag
+          version=$(echo "${{ matrix.version_tag }}" | cut -d':' -f1)
+          version_tag="${version}-${module_name}"
+
+          # Get all tags sorted by version, filtered by the module name
+          previous_tag=$(git tag --sort=-v:refname | grep -E "^[0-9]+\.[0-9]+\.[0-9]+-${module_name}$" | head -n 1)
+
           # Push the new tag
           git tag "${version_tag}"
           git push origin tag "${version_tag}"
 
-          # Get all tags sorted by version, filtered by the module name
-          previous_tag=$(git tag --sort=-v:refname | grep -E "^[0-9]+\.[0-9]+\.[0-9]+-${module_name}$" | head -n 1)
+          echo "new_tag=${version_tag}" >> $GITHUB_OUTPUT
+
+          echo "::group::New Tag"
+          echo "New Tag: ${version_tag}"
+          echo "::endgroup::"
 
           echo "previous_tag=${previous_tag}" >> $GITHUB_OUTPUT
 
@@ -140,20 +153,8 @@ jobs:
           echo "Previous Tag: ${previous_tag}"
           echo "::endgroup::"
 
+          # Exit the script if the previous tag is not found
           if [[ -z "${previous_tag}" ]]; then
-            # Extract the module name from the version tag
-            module_name=$(echo "${{ matrix.version_tag }}" | cut -d':' -f2)
-            # Extract the module version from the version tag
-            version=$(echo "${{ matrix.version_tag }}" | cut -d':' -f1)
-            version_tag="${version}-${module_name}"
-
-            echo "new_tag=${version_tag}" >> $GITHUB_OUTPUT
-
-            echo "::group::New Tag"
-            echo "New Tag: ${version_tag}"
-            echo "::endgroup::"
-          else
-            # Exit the script if the previous tag is not found
             echo "No previous tag found, exiting."
             exit 1
           fi
@@ -180,3 +181,9 @@ jobs:
           prerelease: false
           skipIfReleaseExists: true
           tag: ${{ steps.image-tags.outputs.new_tag }}
+
+      - name: Clean up on failure
+        if: ${{ failure() && steps.image-tags.outputs.new_tag }}
+        run: |
+          git push --delete origin "${{ steps.image-tags.outputs.new_tag }}"
+        shell: bash
