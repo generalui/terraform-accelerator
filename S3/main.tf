@@ -1,16 +1,13 @@
 # AWS S3 Bucket
-# See https://registry.terraform.io/modules/cloudposse/s3-bucket/aws/4.0.0
+# See https://registry.terraform.io/modules/cloudposse/s3-bucket/aws/4.0.1
 
 module "s3_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "4.0.0"
+  version = "4.0.1"
 
-  name      = var.name == null ? var.context.name : var.name
-  namespace = var.namespace == null ? var.context.namespace : var.namespace
-  stage     = var.stage == null ? var.context.stage : var.stage
+  context = module.this.context
 
   access_key_enabled                      = var.access_key_enabled
-  acl                                     = var.acl
   allowed_bucket_actions                  = var.allowed_bucket_actions
   allow_encrypted_uploads_only            = var.allow_encrypted_uploads_only
   allow_ssl_requests_only                 = var.allow_ssl_requests_only
@@ -20,7 +17,6 @@ module "s3_bucket" {
   bucket_name                             = var.bucket_name
   cors_configuration                      = var.cors_configuration
   force_destroy                           = var.force_destroy
-  grants                                  = var.grants
   ignore_public_acls                      = var.ignore_public_acls
   kms_master_key_arn                      = var.kms_master_key_arn
   lifecycle_configuration_rules           = var.lifecycle_configuration_rules
@@ -45,6 +41,4 @@ module "s3_bucket" {
   versioning_enabled                      = var.versioning_enabled
   website_configuration                   = var.website_configuration
   website_redirect_all_requests_to        = var.website_redirect_all_requests_to
-
-  tags = var.tags == null ? var.context.tags : var.tags
 }

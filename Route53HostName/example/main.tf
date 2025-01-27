@@ -24,7 +24,7 @@ provider "aws" {
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//Label?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -94,7 +94,7 @@ variable "context" {
 variable "environment_name" {
   type        = string
   description = "Current environment, e.g. 'prod', 'staging', 'dev', 'QA', 'performance'"
-  default     = "dev"
+  default     = "example"
   validation {
     condition     = length(var.environment_name) < 8
     error_message = "The environment_name value must be less than 8 characters"
@@ -103,7 +103,7 @@ variable "environment_name" {
 
 variable "namespace" {
   type        = string
-  default     = "test"
+  default     = "xmpl"
   description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
 }
 

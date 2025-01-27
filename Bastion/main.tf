@@ -45,7 +45,7 @@ resource "aws_instance" "default" {
   #bridgecrew:skip=BC_AWS_PUBLIC_12: Skipping `EC2 Should Not Have Public IPs` check. NAT instance requires public IP.
   #bridgecrew:skip=BC_AWS_GENERAL_31: Skipping `Ensure Instance Metadata Service Version 1 is not enabled` check until BridgeCrew support condition evaluation. See https://github.com/bridgecrewio/checkov/issues/793
   count                       = module.this.enabled ? 1 : 0
-  ami                         = coalesce(var.ami, join("", data.aws_ami.default.*.id))
+  ami                         = coalesce(var.ami, try(data.aws_ami.default[0].id, ""))
   instance_type               = var.instance_type
   user_data                   = length(var.user_data_base64) > 0 ? var.user_data_base64 : local.user_data_templated
   vpc_security_group_ids      = compact(concat(module.bastion_security_group.*.security_group_id, var.security_groups))
@@ -84,34 +84,37 @@ resource "aws_instance" "default" {
 
 resource "aws_eip" "default" {
   count    = local.eip_enabled ? 1 : 0
-  instance = join("", aws_instance.default.*.id)
+  instance = try(aws_instance.default[0].id, "")
   domain   = "vpc"
   tags     = module.this.tags
 }
 
 module "dns" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Route53HostName?ref=1.0.0-Route53HostName"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Route53HostName?ref=1.0.1-Route53HostName"
 
   enabled  = module.this.enabled && try(length(var.zone_id), 0) > 0 ? true : false
   zone_id  = var.zone_id
   ttl      = 60
-  records  = var.associate_public_ip_address ? tolist([local.public_dns]) : tolist([join("", aws_instance.default.*.private_dns)])
+  records  = var.associate_public_ip_address ? [local.public_dns] : [try(aws_instance.default[0].private_dns, "")]
   context  = module.this.context
   dns_name = var.host_name
 }
 
 resource "aws_iam_group" "bastion_access" {
-  name = "${module.this.id}-access"
-  path = "/"
+  count = module.this.enabled ? 1 : 0
+  name  = "${module.this.id}-access"
+  path  = "/"
 }
 
 resource "aws_iam_group_policy_attachment" "bastion_access" {
-  group      = aws_iam_group.bastion_access.name
-  policy_arn = module.bastion_access_policy.arn
+  count      = module.this.enabled ? 1 : 0
+  group      = aws_iam_group.bastion_access[0].name
+  policy_arn = module.bastion_access_policy[0].arn
 }
 
 module "bastion_access_policy" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.0-IamPolicy"
+  count  = module.this.enabled ? 1 : 0
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
 
   name    = "${module.this.id}-access"
   context = module.this.context
@@ -138,5 +141,5 @@ module "bastion_access_policy" {
       }
     ]
   }]
-  iam_policy_enabled = module.this.enabled
+  iam_policy_enabled = true
 }

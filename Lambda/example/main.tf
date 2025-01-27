@@ -33,7 +33,7 @@ data "archive_file" "lambda_zip" {
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//Label?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -46,7 +46,7 @@ module "this" {
 }
 
 module "inside_policy" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//IamPolicy?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
 
   # Add the project to the name so it is the same as `local.policy_name_inside`
   name    = "${var.project}-inside"

@@ -16,15 +16,10 @@ variable "allowed_cidr_blocks" {
   description = "The whitelisted CIDRs which to allow `ingress` traffic to the DB instance"
 }
 
-variable "attributes" {
+variable "associate_security_group_ids" {
   type        = list(string)
   default     = []
-  description = <<-EOT
-    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,
-    in the order they appear in the list. New attributes are appended to the
-    end of the list. The elements of the list are joined by the `delimiter`
-    and treated as a single ID element.
-    EOT
+  description = "The IDs of the existing security groups to associate with the DB instance"
 }
 
 variable "apply_immediately" {
@@ -55,24 +50,6 @@ variable "ca_cert_identifier" {
   type        = string
   description = "The identifier of the CA certificate for the DB instance"
   default     = null
-}
-
-variable "context" {
-  type = any
-  default = {
-    attributes = []
-    name       = null
-    namespace  = null
-    stage      = null
-    tags       = {}
-  }
-  description = <<-EOT
-    Single object for setting entire context at once.
-    See description of individual variables for details.
-    Leave string and numeric variables as `null` to use default value.
-    Individual variable settings (non-null) override settings in context object,
-    except for attributes, tags, and additional_tag_map, which are merged.
-  EOT
 }
 
 variable "copy_tags_to_snapshot" {
@@ -159,6 +136,12 @@ variable "dns_zone_id" {
   description = "The ID of the DNS Zone in Route53 where a new DNS record will be created for the DB host name"
 }
 
+variable "enabled_cloudwatch_logs_exports" {
+  type        = list(string)
+  default     = []
+  description = "List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine): alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL)."
+}
+
 variable "engine" {
   type        = string
   description = "Database engine type. Required unless a `snapshot_identifier` or `replicate_source_db` is provided."
@@ -176,16 +159,34 @@ variable "engine_version" {
   # http://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html
 }
 
+variable "final_snapshot_identifier" {
+  type        = string
+  description = "Final snapshot identifier e.g.: some-db-final-snapshot-2019-06-26-06-05"
+  default     = ""
+}
+
 variable "host_name" {
   type        = string
   default     = "db"
   description = "The DB host name created in Route53"
 }
 
+variable "iam_database_authentication_enabled" {
+  type        = bool
+  description = "Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled"
+  default     = false
+}
+
 variable "instance_class" {
   type        = string
   description = "Class of RDS instance"
   # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html
+}
+
+variable "iops" {
+  type        = number
+  description = "The amount of provisioned IOPS, only valid for certain values of storage_type."
+  default     = null
 }
 
 variable "kms_key_arn" {
@@ -213,26 +214,22 @@ variable "max_allocated_storage" {
   default     = 0
 }
 
+variable "monitoring_interval" {
+  type        = string
+  description = "The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. Valid Values are 0, 1, 5, 10, 15, 30, 60."
+  default     = "0"
+}
+
+variable "monitoring_role_arn" {
+  type        = string
+  description = "The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to CloudWatch Logs"
+  default     = null
+}
+
 variable "multi_az" {
   type        = bool
   description = "Set to true if multi AZ deployment must be supported"
   default     = false
-}
-
-variable "name" {
-  type        = string
-  default     = null
-  description = <<-EOT
-    ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.
-    This is the only ID element not also included as a `tag`.
-    The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.
-    EOT
-}
-
-variable "namespace" {
-  type        = string
-  default     = null
-  description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
 }
 
 variable "option_group_name" {
@@ -241,10 +238,52 @@ variable "option_group_name" {
   default     = ""
 }
 
+variable "parameter_group_name" {
+  type        = string
+  description = "Name of the DB parameter group to associate"
+  default     = ""
+}
+
+variable "performance_insights_enabled" {
+  type        = bool
+  default     = false
+  description = "Specifies whether Performance Insights are enabled."
+}
+
+variable "performance_insights_kms_key_id" {
+  type        = string
+  default     = null
+  description = "The ARN for the KMS key to encrypt Performance Insights data. Once KMS key is set, it can never be changed."
+}
+
+variable "performance_insights_retention_period" {
+  type        = number
+  default     = 7
+  description = "The amount of time in days to retain Performance Insights data. Either 7 (7 days) or 731 (2 years)."
+}
+
 variable "publicly_accessible" {
   type        = bool
   description = "Determines if database can be publicly available (NOT recommended)"
   default     = false
+}
+
+variable "replicate_source_db" {
+  type        = string
+  description = "Specifies that this resource is a Replicate database, and to use this value as the source database. This correlates to the `identifier` of another Amazon RDS Database to replicate (if replicating within a single region) or ARN of the Amazon RDS Database to replicate (if replicating cross-region). Note that if you are creating a cross-region replica of an encrypted database you will also need to specify a `kms_key_id`. See [DB Instance Replication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Replication.html) and [Working with PostgreSQL and MySQL Read Replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html) for more information on using Replication."
+  default     = null
+}
+
+variable "restore_to_point_in_time" {
+  type = object({
+    restore_time                             = optional(string, null)
+    source_db_instance_identifier            = optional(string, null)
+    source_db_instance_automated_backups_arn = optional(string, null)
+    source_dbi_resource_id                   = optional(string, null)
+    use_latest_restorable_time               = optional(bool, null)
+  })
+  description = "An object specifying the restore point in time for the DB instance to restore from. Only used when `snapshot_identifier` is not provided."
+  default     = null
 }
 
 variable "security_group_ids" {
@@ -265,16 +304,16 @@ variable "snapshot_identifier" {
   default     = null
 }
 
-variable "stage" {
-  type        = string
-  default     = null
-  description = "ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'"
-}
-
 variable "storage_encrypted" {
   type        = bool
   description = "(Optional) Specifies whether the DB instance is encrypted. The default is false if not specified"
   default     = true
+}
+
+variable "storage_throughput" {
+  type        = number
+  description = "The storage throughput value for the DB instance. Can only be set when `storage_type` is `gp3`. Cannot be specified if the `allocated_storage` value is below a per-engine threshold."
+  default     = null
 }
 
 variable "storage_type" {
@@ -287,6 +326,26 @@ variable "subnet_ids" {
   description = "List of subnet IDs for the DB. DB instance will be created in the VPC associated with the DB subnet group provisioned using the subnet IDs. Specify one of `subnet_ids` or `db_subnet_group_name`"
   type        = list(string)
   default     = []
+}
+
+variable "timeouts" {
+  type = object({
+    create = string
+    update = string
+    delete = string
+  })
+  description = "A list of DB timeouts to apply to the running code while creating, updating, or deleting the DB instance."
+  default = {
+    create = "40m"
+    update = "80m"
+    delete = "60m"
+  }
+}
+
+variable "timezone" {
+  type        = string
+  description = "Time zone of the DB instance. timezone is currently only supported by Microsoft SQL Server. The timezone can only be set on creation. See [MSSQL User Guide](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone) for more information."
+  default     = null
 }
 
 variable "vpc_id" {

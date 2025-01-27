@@ -31,7 +31,7 @@ resource "random_string" "secret_name" {
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//Label?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -44,7 +44,7 @@ module "this" {
 }
 
 module "kms_key" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//KmsKey?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//KmsKey?ref=1.0.1-KmsKey"
 
   context = module.this.context
 
@@ -62,7 +62,7 @@ module "ssh_key_pair" {
 }
 
 module "key_secrets" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//SecretsManager?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//SecretsManager?ref=1.0.1-SecretsManager"
 
   context = module.this.context
   name    = local.key_secret_name
@@ -128,7 +128,7 @@ variable "context" {
 variable "environment_name" {
   type        = string
   description = "Current environment, e.g. 'prod', 'staging', 'dev', 'QA', 'performance'"
-  default     = "dev"
+  default     = "example"
   validation {
     condition     = length(var.environment_name) < 8
     error_message = "The environment_name value must be less than 8 characters"
@@ -137,7 +137,7 @@ variable "environment_name" {
 
 variable "namespace" {
   type        = string
-  default     = "test"
+  default     = "xmpl"
   description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
 }
 

@@ -21,9 +21,9 @@ provider "aws" {
   }
 }
 
-# This is the "context". It uses the Label module to help ensure consistant naming conventions.
+# This is the "context". It uses the Label module to help ensure consistent naming conventions.
 module "this" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.0-Label"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -36,7 +36,7 @@ module "this" {
 }
 
 module "vpc" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//VPC?ref=1.0.0-VPC"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//VPC?ref=1.0.1-VPC"
 
   name    = "vpc"
   context = module.this.context
@@ -46,7 +46,7 @@ module "vpc" {
 
 module "subnets" {
   depends_on = [module.vpc]
-  source     = "git::git@github.com:generalui/terraform-accelerator.git//Subnet?ref=1.0.0-Subnet"
+  source     = "git::git@github.com:generalui/terraform-accelerator.git//Subnet?ref=1.0.1-Subnet"
 
   name    = "subnet"
   context = module.this.context

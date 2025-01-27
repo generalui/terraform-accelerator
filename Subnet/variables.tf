@@ -101,6 +101,48 @@ variable "namespace" {
   description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
 }
 
+variable "nat_elastic_ips" {
+  type        = list(string)
+  description = "Existing Elastic IPs (not EIP IDs) to attach to the NAT Gateway(s) or Instance(s) instead of creating new ones."
+  default     = []
+  nullable    = false
+}
+
+variable "nat_gateway_enabled" {
+  type        = bool
+  description = <<-EOT
+    Set `true` to create NAT Gateways to perform IPv4 NAT and NAT64 as needed.
+    Defaults to `true` unless `nat_instance_enabled` is `true`.
+    EOT
+  default     = null
+}
+
+variable "nat_instance_enabled" {
+  type        = bool
+  description = <<-EOT
+    Set `true` to create NAT Instances to perform IPv4 NAT.
+    Defaults to `false`.
+    EOT
+  default     = null
+}
+
+variable "private_subnets_enabled" {
+  type        = bool
+  description = "If false, do not create private subnets (or NAT gateways or instances)"
+  default     = true
+  nullable    = false
+}
+
+variable "public_subnets_enabled" {
+  type        = bool
+  description = <<-EOT
+    If false, do not create public subnets.
+    Since NAT gateways and instances must be created in public subnets, these will also not be created when `false`.
+    EOT
+  default     = true
+  nullable    = false
+}
+
 variable "stage" {
   type        = string
   default     = null

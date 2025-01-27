@@ -41,7 +41,7 @@ resource "time_static" "activation_date" {}
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.0-Label"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project

@@ -29,6 +29,7 @@ module "state_backend" {
   source = "../"
 
   attributes = ["state"]
+  enabled    = true
   context    = module.this.context
 
   force_destroy                      = false
@@ -84,7 +85,7 @@ variable "context" {
 variable "environment_name" {
   type        = string
   description = "Current environment, e.g. 'prod', 'staging', 'dev', 'QA', 'performance'"
-  default     = "dev"
+  default     = "example"
   validation {
     condition     = length(var.environment_name) < 8
     error_message = "The environment_name value must be less than 8 characters"
@@ -93,7 +94,7 @@ variable "environment_name" {
 
 variable "namespace" {
   type        = string
-  default     = "test"
+  default     = "xmpl"
   description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
 }
 

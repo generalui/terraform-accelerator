@@ -17,9 +17,9 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_ecr"></a> [ecr](#module\_ecr) | ../ | n/a |
-| <a name="module_read_iam_role"></a> [read\_iam\_role](#module\_read\_iam\_role) | git::<git@github.com>:ohgod-ai/eo-terraform.git//IamRole | 1.0.1-IamRole |
-| <a name="module_this"></a> [this](#module\_this) | git::<git@github.com>:ohgod-ai/eo-terraform.git//Label | 1.0.1-Label |
-| <a name="module_write_iam_role"></a> [write\_iam\_role](#module\_write\_iam\_role) | git::<git@github.com>:ohgod-ai/eo-terraform.git//IamRole | 1.0.1-IamRole |
+| <a name="module_read_iam_role"></a> [read\_iam\_role](#module\_read\_iam\_role) | git::git@github.com:generalui/terraform-accelerator.git//IamRole | 1.0.1-IamRole |
+| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
+| <a name="module_write_iam_role"></a> [write\_iam\_role](#module\_write\_iam\_role) | git::git@github.com:generalui/terraform-accelerator.git//IamRole | 1.0.1-IamRole |
 
 ## Resources
 

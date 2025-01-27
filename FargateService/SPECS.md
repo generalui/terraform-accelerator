@@ -16,7 +16,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_ecs_fargate_service"></a> [ecs\_fargate\_service](#module\_ecs\_fargate\_service) | cn-terraform/ecs-fargate-service/aws | 2.0.41 |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.0-Label |
+| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
 
 ## Resources
 

@@ -1,9 +1,9 @@
 # AWS ElastiCache
-# See https://registry.terraform.io/modules/cloudposse/elasticache-redis/aws/1.4.1
+# See https://registry.terraform.io/modules/cloudposse/elasticache-redis/aws/1.7.0
 
 module "elasticache_redis" {
   source  = "cloudposse/elasticache-redis/aws"
-  version = "1.4.1"
+  version = "1.7.0"
 
   context = module.this.context
 

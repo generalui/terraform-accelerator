@@ -1,33 +1,73 @@
 # AWS Security Group
-# See https://registry.terraform.io/modules/cloudposse/security-group/aws/2.2.0
+# See https://registry.terraform.io/modules/terraform-aws-modules/security-group/aws/5.1.0
+#
+# Security Group names must be unique within a VPC.
+# This module follows Cloud Posse naming conventions and generates the name
+# based on the inputs to the null-label module, which means you cannot
+# reuse the label as-is for more than one security group in the VPC.
 
 module "security_group" {
-  source  = "cloudposse/security-group/aws"
-  version = "2.2.0"
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "5.1.0"
 
-  # Security Group names must be unique within a VPC.
-  # This module follows Cloud Posse naming conventions and generates the name
-  # based on the inputs to the null-label module, which means you cannot
-  # reuse the label as-is for more than one security group in the VPC.
-  #
-  # Add an attribute to give the Security Group a unique name
-  attributes = var.attributes == null ? var.context.attributes : var.attributes
-  enabled    = var.enabled == null ? var.context.enabled : var.enabled
-  name       = var.name == null ? var.context.name : var.name
-  namespace  = var.namespace == null ? var.context.namespace : var.namespace
-  stage      = var.stage == null ? var.context.stage : var.stage
+  computed_egress_rules                          = var.computed_egress_rules
+  computed_egress_with_cidr_blocks               = var.computed_egress_with_cidr_blocks
+  computed_egress_with_ipv6_cidr_blocks          = var.computed_egress_with_ipv6_cidr_blocks
+  computed_egress_with_prefix_list_ids           = var.computed_egress_with_prefix_list_ids
+  computed_egress_with_self                      = var.computed_egress_with_self
+  computed_egress_with_source_security_group_id  = var.computed_egress_with_source_security_group_id
+  computed_ingress_rules                         = var.computed_ingress_rules
+  computed_ingress_with_cidr_blocks              = var.computed_ingress_with_cidr_blocks
+  computed_ingress_with_ipv6_cidr_blocks         = var.computed_ingress_with_ipv6_cidr_blocks
+  computed_ingress_with_prefix_list_ids          = var.computed_ingress_with_prefix_list_ids
+  computed_ingress_with_self                     = var.computed_ingress_with_self
+  computed_ingress_with_source_security_group_id = var.computed_ingress_with_source_security_group_id
 
-  allow_all_egress              = var.allow_all_egress
-  preserve_security_group_id    = var.preserve_security_group_id
-  revoke_rules_on_delete        = var.revoke_rules_on_delete
-  rule_matrix                   = var.rule_matrix
-  rules                         = var.rules
-  rules_map                     = var.rules_map
-  security_group_create_timeout = var.security_group_create_timeout
-  security_group_delete_timeout = var.security_group_delete_timeout
-  security_group_description    = var.security_group_description
-  security_group_name           = var.security_group_name_prefix
-  vpc_id                        = var.vpc_id
+  create         = module.this.enabled
+  create_sg      = var.create_sg
+  create_timeout = var.create_timeout
+  delete_timeout = var.delete_timeout
+  description    = var.description
 
-  tags = var.tags == null ? var.context.tags : var.tags
+  egress_cidr_blocks                   = var.egress_cidr_blocks
+  egress_ipv6_cidr_blocks              = var.egress_ipv6_cidr_blocks
+  egress_prefix_list_ids               = var.egress_prefix_list_ids
+  egress_rules                         = var.egress_rules
+  egress_with_cidr_blocks              = var.egress_with_cidr_blocks
+  egress_with_ipv6_cidr_blocks         = var.egress_with_ipv6_cidr_blocks
+  egress_with_prefix_list_ids          = var.egress_with_prefix_list_ids
+  egress_with_self                     = var.egress_with_self
+  egress_with_source_security_group_id = var.egress_with_source_security_group_id
+
+  ingress_cidr_blocks                   = var.ingress_cidr_blocks
+  ingress_ipv6_cidr_blocks              = var.ingress_ipv6_cidr_blocks
+  ingress_prefix_list_ids               = var.ingress_prefix_list_ids
+  ingress_rules                         = var.ingress_rules
+  ingress_with_cidr_blocks              = var.ingress_with_cidr_blocks
+  ingress_with_ipv6_cidr_blocks         = var.ingress_with_ipv6_cidr_blocks
+  ingress_with_prefix_list_ids          = var.ingress_with_prefix_list_ids
+  ingress_with_self                     = var.ingress_with_self
+  ingress_with_source_security_group_id = var.ingress_with_source_security_group_id
+
+  name = module.this.id
+
+  number_of_computed_egress_rules                          = var.number_of_computed_egress_rules
+  number_of_computed_egress_with_cidr_blocks               = var.number_of_computed_egress_with_cidr_blocks
+  number_of_computed_egress_with_ipv6_cidr_blocks          = var.number_of_computed_egress_with_ipv6_cidr_blocks
+  number_of_computed_egress_with_prefix_list_ids           = var.number_of_computed_egress_with_prefix_list_ids
+  number_of_computed_egress_with_self                      = var.number_of_computed_egress_with_self
+  number_of_computed_egress_with_source_security_group_id  = var.number_of_computed_egress_with_source_security_group_id
+  number_of_computed_ingress_rules                         = var.number_of_computed_ingress_rules
+  number_of_computed_ingress_with_cidr_blocks              = var.number_of_computed_ingress_with_cidr_blocks
+  number_of_computed_ingress_with_ipv6_cidr_blocks         = var.number_of_computed_ingress_with_ipv6_cidr_blocks
+  number_of_computed_ingress_with_prefix_list_ids          = var.number_of_computed_ingress_with_prefix_list_ids
+  number_of_computed_ingress_with_self                     = var.number_of_computed_ingress_with_self
+  number_of_computed_ingress_with_source_security_group_id = var.number_of_computed_ingress_with_source_security_group_id
+
+  revoke_rules_on_delete = var.revoke_rules_on_delete
+  security_group_id      = var.security_group_id
+  use_name_prefix        = var.use_name_prefix
+  vpc_id                 = var.vpc_id
+
+  tags = module.this.tags
 }

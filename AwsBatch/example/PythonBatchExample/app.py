@@ -4,7 +4,7 @@ from logging import Logger
 import logging
 from loguru import logger
 
-LOG_PREFIX = 'Example-Python-Batch'
+LOG_PREFIX = 'Example-Python-Batch-ECR'
 
 # Load environment variables
 aws_region = os.getenv('REGION', 'us-east-2')
@@ -34,7 +34,7 @@ class InterceptHandler(logging.Handler):
 
     def emit(self, record):
         """
-        Redefinition of parent method, do whatever it takes to actually log the specified logging record.
+        redifinition of parent method, do whatever it takes to actually log the specified logging record.
         :param record: message received by intercepted logger
         """
         try:
@@ -53,7 +53,7 @@ class InterceptHandler(logging.Handler):
 
 def get_logger(level: str = "INFO", intercept: list[str] = None) -> Logger:
     """
-    Create and returns an eo standard logger
+    create and returns an eo standard logger
     :param level: logging level, must be one [DEBUG | INFO | WARNING | ERROR]
     :param intercept: list of logger names to intercept, messages from these loggers will be redirected to this one.
     :return: configured loguru logger

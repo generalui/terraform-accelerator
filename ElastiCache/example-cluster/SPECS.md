@@ -16,9 +16,9 @@ No providers.
 |------|--------|---------|
 | <a name="module_cloudwatch_logs"></a> [cloudwatch\_logs](#module\_cloudwatch\_logs) | cloudposse/cloudwatch-logs/aws | 0.6.8 |
 | <a name="module_elasticache"></a> [elasticache](#module\_elasticache) | ../ | n/a |
-| <a name="module_subnet"></a> [subnet](#module\_subnet) | git::git@github.com:generalui/terraform-accelerator.git//Subnet | 1.0.0-Subnet |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.0-Label |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::git@github.com:generalui/terraform-accelerator.git//VPC | 1.0.0-VPC |
+| <a name="module_subnet"></a> [subnet](#module\_subnet) | git::git@github.com:generalui/terraform-accelerator.git//Subnet | 1.0.1-Subnet |
+| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::git@github.com:generalui/terraform-accelerator.git//VPC | 1.0.1-VPC |
 
 ## Resources
 

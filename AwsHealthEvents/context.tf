@@ -7,7 +7,7 @@
 
 module "this" {
   for_each = local.event_rules
-  source   = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.0-Label"
+  source   = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   enabled    = var.enabled
   namespace  = var.namespace

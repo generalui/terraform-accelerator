@@ -14,8 +14,8 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_elasticache_redis"></a> [elasticache\_redis](#module\_elasticache\_redis) | cloudposse/elasticache-redis/aws | 1.4.1 |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.0-Label |
+| <a name="module_elasticache_redis"></a> [elasticache\_redis](#module\_elasticache\_redis) | cloudposse/elasticache-redis/aws | 1.7.0 |
+| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
 
 ## Resources
 

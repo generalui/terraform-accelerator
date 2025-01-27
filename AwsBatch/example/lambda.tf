@@ -1,6 +1,6 @@
 # module "lambda" {
 #   depends_on = [module.inside_policy]
-#   source = "git::git@github.com:generalui/terraform-accelerator.git//Lambda?ref=1.0.0-Lambda"
+#   source = "git::git@github.com:generalui/terraform-accelerator.git//Lambda?ref=1.0.1-Lambda"
 
 #   name    = "example-batch-slack-lambda"
 #   context = module.this.context

@@ -11,22 +11,22 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0 |
-| <a name="provider_docker"></a> [docker](#provider\_docker) | ~> 3.0 |
-| <a name="provider_time"></a> [time](#provider\_time) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.53.0 |
+| <a name="provider_docker"></a> [docker](#provider\_docker) | 3.0.2 |
+| <a name="provider_time"></a> [time](#provider\_time) | 0.11.2 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_aws_batch_compute"></a> [aws\_batch\_compute](#module\_aws\_batch\_compute) | ../ | n/a |
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | git::git@github.com:generalui/terraform-accelerator.git//ECR | 1.0.0-ECR |
-| <a name="module_read_iam_role"></a> [read\_iam\_role](#module\_read\_iam\_role) | git::git@github.com:generalui/terraform-accelerator.git//IamRole | 1.0.0-IamRole |
-| <a name="module_subnet"></a> [subnet](#module\_subnet) | git::git@github.com:generalui/terraform-accelerator.git//Subnet | 1.0.0-Subnet |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.0-Label |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::git@github.com:generalui/terraform-accelerator.git//VPC | 1.0.0-VPC |
-| <a name="module_vpc_endpoint_security_group"></a> [vpc\_endpoint\_security\_group](#module\_vpc\_endpoint\_security\_group) | git::git@github.com:generalui/terraform-accelerator.git//SecurityGroup | 1.0.0-SecurityGroup |
-| <a name="module_write_iam_role"></a> [write\_iam\_role](#module\_write\_iam\_role) | git::git@github.com:generalui/terraform-accelerator.git//IamRole | 1.0.0-IamRole |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | git::git@github.com:generalui/terraform-accelerator.git//ECR | 1.0.1-ECR |
+| <a name="module_read_iam_role"></a> [read\_iam\_role](#module\_read\_iam\_role) | git::git@github.com:generalui/terraform-accelerator.git//IamRole | 1.0.1-IamRole |
+| <a name="module_subnet"></a> [subnet](#module\_subnet) | git::git@github.com:generalui/terraform-accelerator.git//Subnet | 1.0.1-Subnet |
+| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::git@github.com:generalui/terraform-accelerator.git//VPC | 1.0.1-VPC |
+| <a name="module_vpc_endpoint_security_group"></a> [vpc\_endpoint\_security\_group](#module\_vpc\_endpoint\_security\_group) | git::git@github.com:generalui/terraform-accelerator.git//SecurityGroup | 1.0.1-SecurityGroup |
+| <a name="module_write_iam_role"></a> [write\_iam\_role](#module\_write\_iam\_role) | git::git@github.com:generalui/terraform-accelerator.git//IamRole | 1.0.1-IamRole |
 
 ## Resources
 
@@ -54,7 +54,7 @@
 | <a name="input_environment_name"></a> [environment\_name](#input\_environment\_name) | Current environment, e.g. 'prod', 'staging', 'dev', 'QA', 'performance' | `string` | `"test"` | no |
 | <a name="input_health_emails"></a> [health\_emails](#input\_health\_emails) | The email addresses to send health notifications to. | `list(string)` | `[]` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `"xmpl"` | no |
-| <a name="input_project"></a> [project](#input\_project) | Name of the project as a whole | `string` | `"awsbatch"` | no |
+| <a name="input_project"></a> [project](#input\_project) | Name of the project as a whole | `string` | `"Aws-Batch"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 
 ## Outputs

@@ -33,7 +33,7 @@ resource "random_string" "secret_name" {
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//Label?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -56,7 +56,7 @@ resource "aws_iam_group_policy_attachment" "s3_access" {
 }
 
 module "assume_s3_access" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//IamPolicy?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
 
   name    = "${module.this.id}-assume-s3-access"
   context = module.this.context
@@ -78,7 +78,7 @@ module "assume_s3_access" {
 }
 
 module "s3_access_policy" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//IamPolicy?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
 
   name    = "${module.this.id}-s3-access-policy"
   context = module.this.context
@@ -97,7 +97,7 @@ module "s3_access_policy" {
 }
 
 module "role" {
-  source = "git::git@github.com:ohgod-ai/eo-terraform.git//IamRole?ref=1.0.0"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.1-IamRole"
 
   name    = "${module.this.id}-s3-access"
   context = module.this.context

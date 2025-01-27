@@ -16,10 +16,10 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bastion_access_policy"></a> [bastion\_access\_policy](#module\_bastion\_access\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.0-IamPolicy |
+| <a name="module_bastion_access_policy"></a> [bastion\_access\_policy](#module\_bastion\_access\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
 | <a name="module_bastion_security_group"></a> [bastion\_security\_group](#module\_bastion\_security\_group) | terraform-aws-modules/security-group/aws | 5.1.0 |
-| <a name="module_dns"></a> [dns](#module\_dns) | git::git@github.com:generalui/terraform-accelerator.git//Route53HostName | 1.0.0-Route53HostName |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.0-Label |
+| <a name="module_dns"></a> [dns](#module\_dns) | git::git@github.com:generalui/terraform-accelerator.git//Route53HostName | 1.0.1-Route53HostName |
+| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
 
 ## Resources
 

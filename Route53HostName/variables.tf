@@ -1,5 +1,3 @@
-
-
 variable "attributes" {
   type        = list(string)
   default     = []

@@ -16,9 +16,9 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_sns_kms_key"></a> [sns\_kms\_key](#module\_sns\_kms\_key) | git::git@github.com:generalui/terraform-accelerator.git//KmsKey | 1.0.0-KmsKey |
+| <a name="module_sns_kms_key"></a> [sns\_kms\_key](#module\_sns\_kms\_key) | git::git@github.com:generalui/terraform-accelerator.git//KmsKey | 1.0.1-KmsKey |
 | <a name="module_sns_topic"></a> [sns\_topic](#module\_sns\_topic) | cloudposse/sns-topic/aws | 0.20.1 |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.0-Label |
+| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
 
 ## Resources
 

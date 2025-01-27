@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//VPC?ref=1.0.0-VPC"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//VPC?ref=1.0.1-VPC"
 
   name    = "vpc"
   context = module.this.context
@@ -9,7 +9,7 @@ module "vpc" {
 }
 
 module "subnet" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Subnet?ref=1.0.0-Subnet"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Subnet?ref=1.0.1-Subnet"
 
   name    = "subnet"
   context = module.this.context
@@ -23,7 +23,7 @@ module "subnet" {
 }
 
 module "vpc_endpoint_security_group" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//SecurityGroup?ref=1.0.0-SecurityGroup"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//SecurityGroup?ref=1.0.1-SecurityGroup"
 
   name        = "${module.this.name}-vpc-endpoint"
   description = "Security group for VPC endpoints"

@@ -55,6 +55,10 @@ variable "key_usage" {
   type        = string
   default     = "ENCRYPT_DECRYPT"
   description = "Specifies the intended use of the key. Valid values: `ENCRYPT_DECRYPT` or `SIGN_VERIFY`."
+  validation {
+    condition     = var.key_usage == "ENCRYPT_DECRYPT" || var.key_usage == "SIGN_VERIFY"
+    error_message = "The key_usage value must be either ENCRYPT_DECRYPT or SIGN_VERIFY"
+  }
 }
 
 variable "name" {
@@ -71,6 +75,12 @@ variable "namespace" {
   type        = string
   default     = null
   description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
+}
+
+variable "policy" {
+  type        = string
+  default     = null
+  description = "A valid KMS policy JSON document. Note that if the policy document is not specific enough (but still valid), Terraform may view the policy as constantly changing in a terraform plan. In this case, please make sure you use the verbose/specific version of the policy."
 }
 
 variable "stage" {

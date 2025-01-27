@@ -25,7 +25,7 @@ data "aws_caller_identity" "current" {}
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.0-Label"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -38,7 +38,7 @@ module "this" {
 }
 
 module "write_iam_role" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.0-IamRole"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.1-IamRole"
 
   name    = "example-ecr-write-access-role"
   context = module.this.context
@@ -52,7 +52,7 @@ module "write_iam_role" {
 }
 
 module "read_iam_role" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.0-IamRole"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.1-IamRole"
 
   name    = "example-ecr-read-access-role"
   context = module.this.context
@@ -125,7 +125,7 @@ variable "context" {
 variable "environment_name" {
   type        = string
   description = "Current environment, e.g. 'prod', 'staging', 'dev', 'QA', 'performance'"
-  default     = "test"
+  default     = "example"
   validation {
     condition     = length(var.environment_name) < 8
     error_message = "The environment_name value must be less than 8 characters"
@@ -141,7 +141,7 @@ variable "namespace" {
 variable "project" {
   type        = string
   description = "Name of the project as a whole"
-  default     = "ecr"
+  default     = "MyProject"
 }
 
 variable "tags" {

@@ -23,7 +23,7 @@ provider "aws" {
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.0-Label"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -164,7 +164,7 @@ variable "namespace" {
 variable "project" {
   type        = string
   description = "Name of the project as a whole"
-  default     = "AwsHealthEvents"
+  default     = "HealthEvents"
 }
 
 variable "tags" {

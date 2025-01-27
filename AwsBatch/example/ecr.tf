@@ -1,5 +1,5 @@
 module "write_iam_role" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.0-IamRole"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.1-IamRole"
 
   name    = "example-ecr-write-access-role"
   context = module.this.context
@@ -13,7 +13,7 @@ module "write_iam_role" {
 }
 
 module "read_iam_role" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.0-IamRole"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.1-IamRole"
 
   name    = "example-ecr-read-access-role"
   context = module.this.context
@@ -27,7 +27,7 @@ module "read_iam_role" {
 }
 
 module "ecr" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//ECR?ref=1.0.0-ECR"
+  source = "git::git@github.com:generalui/terraform-accelerator.git//ECR?ref=1.0.1-ECR"
 
   name    = local.ecr_name
   context = module.this.context
