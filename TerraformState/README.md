@@ -75,6 +75,7 @@ Follow this procedure just once to create your deployment.
     }
     ```
 
+    Remove the value from `profile` so it is like `profile = ""`.
     Moving forward, Terraform will read this newly-created backend definition file.
 
     If an error is returned with

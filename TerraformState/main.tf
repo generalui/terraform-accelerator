@@ -7,13 +7,9 @@
 # https://github.com/cloudposse/terraform-aws-tfstate-backend#usage
 module "terraform_state_backend" {
   source  = "cloudposse/tfstate-backend/aws"
-  version = "1.3.0"
+  version = "1.8.0"
 
-  attributes = var.attributes == null ? var.context.attributes : var.attributes
-  enabled    = var.enabled == null ? var.context.enabled : var.enabled
-  name       = var.name == null ? var.context.name : var.name
-  namespace  = var.namespace == null ? var.context.namespace : var.namespace
-  stage      = var.stage == null ? var.context.stage : var.stage
+  context = module.this.context
 
   billing_mode                       = var.billing_mode
   force_destroy                      = var.force_destroy
