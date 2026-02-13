@@ -32,25 +32,13 @@ module "state_backend" {
   enabled    = true
   context    = module.this.context
 
-  force_destroy                      = false
+  force_destroy                      = true
   profile                            = var.aws_profile
-  role_arn                           = "arn:aws:iam::123456789876:role/SomeDevOpsRole"
-  terraform_backend_config_file_path = "."
+  terraform_backend_config_file_path = ""
   terraform_state_file               = "${var.namespace}-${var.project}.terraform.tfstate"
 }
 
 # Variables
-
-variable "attributes" {
-  type        = list(string)
-  default     = []
-  description = <<-EOT
-    ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,
-    in the order they appear in the list. New attributes are appended to the
-    end of the list. The elements of the list are joined by the `delimiter`
-    and treated as a single ID element.
-    EOT
-}
 
 variable "aws_profile" {
   type        = string
@@ -61,54 +49,5 @@ variable "aws_profile" {
 variable "aws_region" {
   type        = string
   description = "The AWS region."
-  default     = "us-east-2"
-}
-
-variable "context" {
-  type = any
-  default = {
-    attributes = []
-    name       = null
-    namespace  = null
-    stage      = null
-    tags       = {}
-  }
-  description = <<-EOT
-    Single object for setting entire context at once.
-    See description of individual variables for details.
-    Leave string and numeric variables as `null` to use default value.
-    Individual variable settings (non-null) override settings in context object,
-    except for attributes, tags, and additional_tag_map, which are merged.
-  EOT
-}
-
-variable "environment_name" {
-  type        = string
-  description = "Current environment, e.g. 'prod', 'staging', 'dev', 'QA', 'performance'"
-  default     = "example"
-  validation {
-    condition     = length(var.environment_name) < 8
-    error_message = "The environment_name value must be less than 8 characters"
-  }
-}
-
-variable "namespace" {
-  type        = string
-  default     = "xmpl"
-  description = "ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique"
-}
-
-variable "project" {
-  type        = string
-  description = "Name of the project as a whole"
-  default     = "MyProject"
-}
-
-variable "tags" {
-  type        = map(string)
-  default     = {}
-  description = <<-EOT
-    Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).
-    Neither the tag keys nor the tag values will be modified by this module.
-    EOT
+  default     = "us-west-2"
 }
