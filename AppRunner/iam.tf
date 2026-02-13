@@ -48,7 +48,10 @@ module "ecr_access_policy" {
   }]
 }
 
+# Only create when the module creates the role (when access_role_arn is null).
 resource "aws_iam_role_policy_attachment" "ecr_access_attach" {
+  count = local.create_access_role ? 1 : 0
+
   role       = module.apprunner_access_role[0].name
   policy_arn = module.ecr_access_policy[0].arn
 }
