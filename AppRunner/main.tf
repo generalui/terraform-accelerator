@@ -30,6 +30,8 @@ resource "aws_apprunner_service" "this" {
       image_repository_type = var.image_repository_type
       image_configuration {
         port = var.port
+        runtime_environment_variables = var.runtime_environment_variables
+        runtime_environment_secrets   = var.runtime_environment_secrets
       }
     }
     auto_deployments_enabled = var.auto_deployments_enabled
