@@ -23,6 +23,18 @@ variable "port" {
   default     = "8080"
 }
 
+variable "runtime_environment_variables" {
+  type        = map(string)
+  description = "Environment variables for the running service (key-value). Non-sensitive only; for secrets use runtime_environment_secrets."
+  default     = {}
+}
+
+variable "runtime_environment_secrets" {
+  type        = map(string)
+  description = "Secrets for the running service: map of env var name to Secrets Manager secret ARN or SSM Parameter Store parameter ARN."
+  default     = {}
+}
+
 ###
 # App Runner - Access role (for private ECR)
 ###
