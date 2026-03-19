@@ -14,7 +14,7 @@ jobs:
       version_tags: ${{ steps.version.outputs.version_tags }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -27,6 +27,7 @@ jobs:
             .vscode/**/*
             doc_assets/**/*
             ExampleMashups/**/*
+            .cursorrules
             .gitignore
             .markdownlint*
             .tool-versions
@@ -118,7 +119,7 @@ jobs:
         id: info
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ steps.info.outputs.branch }}
