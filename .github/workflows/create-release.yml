@@ -27,6 +27,7 @@ jobs:
             .vscode/**/*
             doc_assets/**/*
             ExampleMashups/**/*
+            .cursorrules
             .gitignore
             .markdownlint*
             .tool-versions

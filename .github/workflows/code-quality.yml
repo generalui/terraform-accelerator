@@ -24,6 +24,7 @@ jobs:
             .github/**/*
             .vscode/**/*
             doc_assets/**/*
+            .cursorrules
             .gitignore
             .markdownlint*
             .tool-versions
@@ -117,7 +118,7 @@ jobs:
 
       - name: Lint all terraform files
         if: steps.changed-terraform.outputs.any_modified == 'true'
-        uses: generalui/github-workflow-accelerators/.github/actions/lint-terraform@1.0.0-lint-terraform
+        uses: generalui/github-workflow-accelerators/.github/actions/lint-terraform@1.0.1-lint-terraform
         with:
           terraform-version: ${{ vars.TERRAFORM_VERSION || 'latest' }}
 
