@@ -111,11 +111,9 @@ jobs:
 
       - name: Lint all Documentation
         if: steps.changed-markdown.outputs.any_modified == 'true'
-        uses: DavidAnson/markdownlint-cli2-action@v14
+        uses: DavidAnson/markdownlint-cli2-action@v22
         with:
-          globs: |
-            **/*.md
-            !**/SPECS.md
+          globs: "**/*.md"
 
       - name: Lint all terraform files
         if: steps.changed-terraform.outputs.any_modified == 'true'
