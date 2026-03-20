@@ -1,5 +1,5 @@
 module "ecr" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//ECR?ref=1.0.1-ECR"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//ECR?ref=1.0.1-ECR"
 
   name                 = local.ecr_name
   context              = module.this.context

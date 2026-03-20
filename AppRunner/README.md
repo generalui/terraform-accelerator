@@ -17,7 +17,7 @@ Optional: VPC connector, custom domain association, and automatic IAM role for E
 
 ```hcl
 module "apprunner" {
-  source = "./AppRunner"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//AppRunner?ref=1.0.5-AppRunner"
 
   context = module.this.context
 
@@ -31,7 +31,7 @@ module "apprunner" {
 
 ```hcl
 module "apprunner" {
-  source = "./AppRunner"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//AppRunner?ref=1.0.5-AppRunner"
 
   context = module.this.context
 
@@ -51,7 +51,7 @@ Use the **AcmCustomDomain** module to create the ACM cert and Route53 CNAME/alia
 
 ```hcl
 module "apprunner" {
-  source = "./AppRunner"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//AppRunner?ref=1.0.5-AppRunner"
 
   context = module.this.context
 
