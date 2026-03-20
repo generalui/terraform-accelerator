@@ -3,15 +3,12 @@
         "adam-bender.commit-message-editor",
         "bierner.markdown-preview-github-styles",
         "DavidAnson.vscode-markdownlint",
-        "eamodio.gitlens",
-        "foxundermoon.shell-format",
         "github.vscode-github-actions",
         "hashicorp.terraform",
         "mikestead.dotenv",
         "ms-python.python",
         "ms-python.vscode-pylance",
         "shardulm94.trailing-spaces",
-        "sourcegraph.cody-ai",
         "streetsidesoftware.code-spell-checker",
         "timonwong.shellcheck"
     ]

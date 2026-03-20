@@ -19,7 +19,7 @@
 		"editor.wordWrap": "on",
 		"files.associations": {
 			".env-*": "dotenv",
-			".markdownlintignore": "ignore",
+			".markdownlint-cli2.jsonc": "json",
 			"*.tfstate.backup": "jsonc",
 			"*.hcl": "terraform",
 			"*.tf": "terraform",
