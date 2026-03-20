@@ -17,7 +17,7 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_apprunner_access_role"></a> [apprunner\_access\_role](#module\_apprunner\_access\_role) | git::git@github.com:generalui/terraform-accelerator.git//IamRole | 1.0.1-IamRole |
-| <a name="module_ecr_access_policy"></a> [ecr\_access\_policy](#module\_ecr\_access\_policy) | git::git@github.com:ohgod-ai/eo-terraform.git//IamPolicy | 1.0.1-IamPolicy |
+| <a name="module_ecr_access_policy"></a> [ecr\_access\_policy](#module\_ecr\_access\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
 | <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
 
 ## Resources
@@ -34,10 +34,10 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_role_arn"></a> [access\_role\_arn](#input\_access\_role\_arn) | ARN of IAM role for App Runner to pull the image from ECR. Required for private ECR when not creating a role. When null and ecr\_repository\_arn is set, the module creates a role. | `string` | `null` | no |
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br>in the order they appear in the list. New attributes are appended to the<br>end of the list. The elements of the list are joined by the `delimiter`<br>and treated as a single ID element. | `list(string)` | `[]` | no |
+| <a name="input_attributes"></a> [attributes](#input\_attributes) | ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,<br/>in the order they appear in the list. New attributes are appended to the<br/>end of the list. The elements of the list are joined by the `delimiter`<br/>and treated as a single ID element. | `list(string)` | `[]` | no |
 | <a name="input_auto_deployments_enabled"></a> [auto\_deployments\_enabled](#input\_auto\_deployments\_enabled) | Whether automatic deployments from the source repository are enabled (e.g. new image tag). | `bool` | `false` | no |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | ARN of ACM certificate for the custom domain. Required when custom\_domain\_name is set if the certificate is not in us-east-1 (App Runner uses us-east-1 for cert validation in some cases). | `string` | `null` | no |
-| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes and tags, which are merged. | `any` | <pre>{<br>  "attributes": [],<br>  "enabled": true,<br>  "name": null,<br>  "namespace": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
+| <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br/>See description of individual variables for details.<br/>Leave string and numeric variables as `null` to use default value.<br/>Individual variable settings (non-null) override settings in context object,<br/>except for attributes and tags, which are merged. | `any` | <pre>{<br/>  "attributes": [],<br/>  "enabled": true,<br/>  "name": null,<br/>  "namespace": null,<br/>  "stage": null,<br/>  "tags": {}<br/>}</pre> | no |
 | <a name="input_cpu"></a> [cpu](#input\_cpu) | Number of CPU units for each instance. Valid values: 256, 512, 1024, 2048, 4096 (or 0.25, 0.5, 1, 2, 4 vCPU). | `string` | `"1024"` | no |
 | <a name="input_custom_domain_name"></a> [custom\_domain\_name](#input\_custom\_domain\_name) | Custom domain name to associate with the App Runner service (e.g. app.example.com). | `string` | `null` | no |
 | <a name="input_ecr_repository_arn"></a> [ecr\_repository\_arn](#input\_ecr\_repository\_arn) | ARN of the ECR repository. Used only when access\_role\_arn is null to create an access role with least-privilege ECR pull for this repository. | `string` | `null` | no |
@@ -52,7 +52,9 @@
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
 | <a name="input_port"></a> [port](#input\_port) | Port that your application listens to in the container. | `string` | `"8080"` | no |
 | <a name="input_project"></a> [project](#input\_project) | Project name. | `string` | `"apprunner"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
+| <a name="input_runtime_environment_secrets"></a> [runtime\_environment\_secrets](#input\_runtime\_environment\_secrets) | Secrets for the running service: map of env var name to Secrets Manager secret ARN or SSM Parameter Store parameter ARN. | `map(string)` | `{}` | no |
+| <a name="input_runtime_environment_variables"></a> [runtime\_environment\_variables](#input\_runtime\_environment\_variables) | Environment variables for the running service (key-value). Non-sensitive only; for secrets use runtime\_environment\_secrets. | `map(string)` | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br/>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_vpc_connector_arn"></a> [vpc\_connector\_arn](#input\_vpc\_connector\_arn) | ARN of an existing App Runner VPC connector. If set, used instead of creating one (vpc\_connector\_subnet\_ids and vpc\_connector\_security\_group\_ids are ignored). | `string` | `null` | no |
 | <a name="input_vpc_connector_security_group_ids"></a> [vpc\_connector\_security\_group\_ids](#input\_vpc\_connector\_security\_group\_ids) | List of security group IDs for the VPC connector. Required when vpc\_connector\_subnet\_ids is set. | `list(string)` | `null` | no |
 | <a name="input_vpc_connector_subnet_ids"></a> [vpc\_connector\_subnet\_ids](#input\_vpc\_connector\_subnet\_ids) | List of subnet IDs for the VPC connector. When set, a VPC connector is created and the service egress is set to VPC. | `list(string)` | `null` | no |
