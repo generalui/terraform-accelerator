@@ -62,7 +62,7 @@ variable "environment_name" {
   default     = null
   description = "Environment name, e.g. prod, staging, dev."
   validation {
-    condition     = var.environment_name == null || length(var.environment_name) < 8
+    condition     = (var.environment_name != null && length(var.environment_name) < 8)
     error_message = "environment_name must be null or less than 8 characters."
   }
 }
