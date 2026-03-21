@@ -19,14 +19,14 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb"></a> [alb](#module\_alb) | git::git@github.com:generalui/terraform-accelerator.git//ALB | 1.0.1-ALB |
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | git::git@github.com:generalui/terraform-accelerator.git//ECR | 1.0.1-ECR |
-| <a name="module_ecr_access_policy"></a> [ecr\_access\_policy](#module\_ecr\_access\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
+| <a name="module_alb"></a> [alb](#module\_alb) | git::https://github.com/generalui/terraform-accelerator.git//ALB | 1.0.2-ALB |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | git::https://github.com/generalui/terraform-accelerator.git//ECR | 1.0.2-ECR |
+| <a name="module_ecr_access_policy"></a> [ecr\_access\_policy](#module\_ecr\_access\_policy) | git::https://github.com/generalui/terraform-accelerator.git//IamPolicy | 1.0.2-IamPolicy |
 | <a name="module_ecs_cluster"></a> [ecs\_cluster](#module\_ecs\_cluster) | ../ | n/a |
-| <a name="module_logging_policy"></a> [logging\_policy](#module\_logging\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
-| <a name="module_subnet"></a> [subnet](#module\_subnet) | git::git@github.com:generalui/terraform-accelerator.git//Subnet | 1.0.1-Subnet |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::git@github.com:generalui/terraform-accelerator.git//VPC | 1.0.1-VPC |
+| <a name="module_logging_policy"></a> [logging\_policy](#module\_logging\_policy) | git::https://github.com/generalui/terraform-accelerator.git//IamPolicy | 1.0.2-IamPolicy |
+| <a name="module_subnet"></a> [subnet](#module\_subnet) | git::https://github.com/generalui/terraform-accelerator.git//Subnet | 1.0.2-Subnet |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/generalui/terraform-accelerator.git//Label | 1.0.2-Label |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/generalui/terraform-accelerator.git//VPC | 1.0.1-VPC |
 
 ## Resources
 

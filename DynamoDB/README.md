@@ -16,7 +16,7 @@ See the [example](./example/) for a minimal runnable setup.
 
 ```hcl
 module "dynamodb" {
-  source = "./DynamoDB"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//DynamoDB?ref=1.0.1-DynamoDB"
 
   context = module.this.context
 
@@ -33,7 +33,7 @@ module "dynamodb" {
 
 ```hcl
 module "dynamodb" {
-  source = "./DynamoDB"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//DynamoDB?ref=1.0.1-DynamoDB"
 
   context = module.this.context
 
@@ -54,7 +54,7 @@ module "dynamodb" {
 
 ```hcl
 module "dynamodb" {
-  source = "./DynamoDB"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//DynamoDB?ref=1.0.1-DynamoDB"
 
   context = module.this.context
 

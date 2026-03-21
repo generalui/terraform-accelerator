@@ -98,9 +98,9 @@ The modules in this repo may be copied to another terraform project or may be re
 (See <https://developer.hashicorp.com/terraform/language/modules/sources#github>)
 
 ```hcl
-source = "git::git@github.com:generalui/terraform-accelerator.git//KeyPair?ref=1.0.1-KeyPair"
+source = "git::https://github.com/generalui/terraform-accelerator.git//KeyPair?ref=1.0.2-KeyPair"
 ```
 
-Where `git::git@github.com:generalui/terraform-accelerator.git` references this repo,
+Where `git::https://github.com/generalui/terraform-accelerator.git` references this repo,
 `//KeyPair` references the folder that holds the module,
 and `?ref=1.0.1-KeyPair` references the version.

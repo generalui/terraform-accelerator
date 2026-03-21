@@ -25,7 +25,7 @@ data "aws_caller_identity" "current" {}
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//Label?ref=1.0.2-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -38,7 +38,7 @@ module "this" {
 }
 
 module "write_iam_role" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.1-IamRole"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//IamRole?ref=1.0.2-IamRole"
 
   name    = "example-ecr-write-access-role"
   context = module.this.context
@@ -52,7 +52,7 @@ module "write_iam_role" {
 }
 
 module "read_iam_role" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamRole?ref=1.0.1-IamRole"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//IamRole?ref=1.0.2-IamRole"
 
   name    = "example-ecr-read-access-role"
   context = module.this.context

@@ -1,6 +1,6 @@
 # Allow the ECS task to pull images from the ECR
 module "ecr_access_policy" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//IamPolicy?ref=1.0.2-IamPolicy"
 
   iam_policy_enabled = true
   name               = "${module.this.name}-ecr-access"
@@ -32,7 +32,7 @@ resource "aws_iam_role_policy_attachment" "ecr_access" {
 
 # Allow the ECS Task to log to CloudWatch
 module "logging_policy" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//IamPolicy?ref=1.0.2-IamPolicy"
 
   iam_policy_enabled = true
   name               = "${module.this.name}-instance-logging"

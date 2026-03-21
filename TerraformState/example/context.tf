@@ -6,7 +6,7 @@
 #
 
 module "this" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//Label?ref=1.0.2-Label"
 
   attributes = var.attributes
   enabled    = var.enabled

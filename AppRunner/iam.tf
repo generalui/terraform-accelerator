@@ -3,7 +3,7 @@
 module "apprunner_access_role" {
   count = local.create_access_role ? 1 : 0
 
-  source = "git::https://github.com/generalui/terraform-accelerator.git//IamRole?ref=1.0.1-IamRole"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//IamRole?ref=1.0.2-IamRole"
 
   context = module.this.context
   name    = "${module.this.name}-ecr-access"
@@ -19,7 +19,7 @@ module "apprunner_access_role" {
 module "ecr_access_policy" {
   count = local.create_access_role ? 1 : 0
 
-  source = "git::https://github.com/generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//IamPolicy?ref=1.0.2-IamPolicy"
 
   iam_policy_enabled = true
   name               = "ecr-access"

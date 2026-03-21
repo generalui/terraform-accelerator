@@ -1,7 +1,7 @@
 data "aws_caller_identity" "this" {}
 
 module "sns_kms_key" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//KmsKey?ref=1.0.1-KmsKey"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//KmsKey?ref=1.0.2-KmsKey"
   count  = local.create_kms_key ? 1 : 0
 
   attributes = []

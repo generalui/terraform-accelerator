@@ -18,10 +18,10 @@
 |------|--------|---------|
 | <a name="module_batch_execution_role"></a> [batch\_execution\_role](#module\_batch\_execution\_role) | ../ | n/a |
 | <a name="module_iam_role"></a> [iam\_role](#module\_iam\_role) | ../ | n/a |
-| <a name="module_lambda_access_s3_policy"></a> [lambda\_access\_s3\_policy](#module\_lambda\_access\_s3\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
-| <a name="module_lambda_logging_policy"></a> [lambda\_logging\_policy](#module\_lambda\_logging\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
-| <a name="module_policy"></a> [policy](#module\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
+| <a name="module_lambda_access_s3_policy"></a> [lambda\_access\_s3\_policy](#module\_lambda\_access\_s3\_policy) | git::https://github.com/generalui/terraform-accelerator.git//IamPolicy | 1.0.2-IamPolicy |
+| <a name="module_lambda_logging_policy"></a> [lambda\_logging\_policy](#module\_lambda\_logging\_policy) | git::https://github.com/generalui/terraform-accelerator.git//IamPolicy | 1.0.2-IamPolicy |
+| <a name="module_policy"></a> [policy](#module\_policy) | git::https://github.com/generalui/terraform-accelerator.git//IamPolicy | 1.0.2-IamPolicy |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/generalui/terraform-accelerator.git//Label | 1.0.2-Label |
 
 ## Resources
 

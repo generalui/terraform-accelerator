@@ -7,10 +7,10 @@ data "aws_region" "default" {}
 
 resource "aws_batch_compute_environment" "batch_compute_environment" {
   # Ensures the right delete order - AWS-batch-compute environments need these permissions to clean themselves up
-  depends_on               = [aws_iam_role_policy_attachment.batch_service_role_policy_attachment]
-  compute_environment_name = "${module.this.id}-worker"
-  service_role             = aws_iam_role.batch_service_role.arn
-  type                     = "MANAGED"
+  depends_on   = [aws_iam_role_policy_attachment.batch_service_role_policy_attachment]
+  name         = "${module.this.id}-worker"
+  service_role = aws_iam_role.batch_service_role.arn
+  type         = "MANAGED"
 
   compute_resources {
     allocation_strategy = var.allocation_strategy

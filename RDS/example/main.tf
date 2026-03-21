@@ -38,7 +38,7 @@ resource "random_string" "secret_name" {
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//Label?ref=1.0.2-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -51,7 +51,7 @@ module "this" {
 }
 
 module "vpc" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//VPC?ref=1.0.1-VPC"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//VPC?ref=1.0.1-VPC"
 
   name    = "vpc"
   context = module.this.context
@@ -60,7 +60,7 @@ module "vpc" {
 }
 
 module "db_subnets" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Subnet?ref=1.0.1-Subnet"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//Subnet?ref=1.0.2-Subnet"
 
   name    = "db_subnets"
   context = module.this.context
@@ -73,7 +73,7 @@ module "db_subnets" {
 }
 
 module "kms_key_db" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//KmsKey?ref=1.0.1-KmsKey"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//KmsKey?ref=1.0.2-KmsKey"
 
   context = module.this.context
 

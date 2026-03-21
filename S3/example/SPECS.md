@@ -17,11 +17,11 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_assume_s3_access"></a> [assume\_s3\_access](#module\_assume\_s3\_access) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
-| <a name="module_role"></a> [role](#module\_role) | git::git@github.com:generalui/terraform-accelerator.git//IamRole | 1.0.1-IamRole |
-| <a name="module_s3_access_policy"></a> [s3\_access\_policy](#module\_s3\_access\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
+| <a name="module_assume_s3_access"></a> [assume\_s3\_access](#module\_assume\_s3\_access) | git::https://github.com/generalui/terraform-accelerator.git//IamPolicy | 1.0.2-IamPolicy |
+| <a name="module_role"></a> [role](#module\_role) | git::https://github.com/generalui/terraform-accelerator.git//IamRole | 1.0.2-IamRole |
+| <a name="module_s3_access_policy"></a> [s3\_access\_policy](#module\_s3\_access\_policy) | git::https://github.com/generalui/terraform-accelerator.git//IamPolicy | 1.0.2-IamPolicy |
 | <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | ../ | n/a |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/generalui/terraform-accelerator.git//Label | 1.0.2-Label |
 
 ## Resources
 

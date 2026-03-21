@@ -17,9 +17,9 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_inside_policy"></a> [inside\_policy](#module\_inside\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
+| <a name="module_inside_policy"></a> [inside\_policy](#module\_inside\_policy) | git::https://github.com/generalui/terraform-accelerator.git//IamPolicy | 1.0.2-IamPolicy |
 | <a name="module_lambda"></a> [lambda](#module\_lambda) | ../ | n/a |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/generalui/terraform-accelerator.git//Label | 1.0.2-Label |
 
 ## Resources
 

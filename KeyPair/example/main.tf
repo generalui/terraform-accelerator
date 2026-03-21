@@ -31,7 +31,7 @@ resource "random_string" "secret_name" {
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//Label?ref=1.0.2-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -44,7 +44,7 @@ module "this" {
 }
 
 module "kms_key" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//KmsKey?ref=1.0.1-KmsKey"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//KmsKey?ref=1.0.2-KmsKey"
 
   context = module.this.context
 
@@ -62,7 +62,7 @@ module "ssh_key_pair" {
 }
 
 module "key_secrets" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//SecretsManager?ref=1.0.1-SecretsManager"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//SecretsManager?ref=1.0.2-SecretsManager"
 
   context = module.this.context
   name    = local.key_secret_name

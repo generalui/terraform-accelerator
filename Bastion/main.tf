@@ -90,7 +90,7 @@ resource "aws_eip" "default" {
 }
 
 module "dns" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Route53HostName?ref=1.0.1-Route53HostName"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//Route53HostName?ref=1.0.2-Route53HostName"
 
   enabled  = module.this.enabled && try(length(var.zone_id), 0) > 0 ? true : false
   zone_id  = var.zone_id
@@ -114,7 +114,7 @@ resource "aws_iam_group_policy_attachment" "bastion_access" {
 
 module "bastion_access_policy" {
   count  = module.this.enabled ? 1 : 0
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//IamPolicy?ref=1.0.2-IamPolicy"
 
   name    = "${module.this.id}-access"
   context = module.this.context
