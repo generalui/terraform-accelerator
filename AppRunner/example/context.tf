@@ -6,7 +6,7 @@
 #
 
 module "this" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//Label?ref=1.0.2-Label"
 
   attributes = var.attributes
   enabled    = var.enabled
@@ -62,8 +62,8 @@ variable "environment_name" {
   default     = "test"
   description = "Environment name, e.g. prod, staging, dev."
   validation {
-    condition     = (var.environment_name != null && length(var.environment_name) < 8)
-    error_message = "environment_name must be less than 8 characters."
+    condition     = var.environment_name == null || length(var.environment_name) < 8
+    error_message = "environment_name must be null or less than 8 characters."
   }
 }
 

@@ -15,8 +15,8 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_subnets"></a> [subnets](#module\_subnets) | ../ | n/a |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::git@github.com:generalui/terraform-accelerator.git//VPC | 1.0.1-VPC |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/generalui/terraform-accelerator.git//Label | 1.0.2-Label |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/generalui/terraform-accelerator.git//VPC | 1.0.1-VPC |
 
 ## Resources
 

@@ -1,5 +1,5 @@
 module "subnet" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Subnet?ref=1.0.1-Subnet"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//Subnet?ref=1.0.2-Subnet"
 
   context = module.this.context
 

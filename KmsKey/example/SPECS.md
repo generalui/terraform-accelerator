@@ -16,10 +16,10 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_key_secrets"></a> [key\_secrets](#module\_key\_secrets) | git::git@github.com:generalui/terraform-accelerator.git//SecretsManager | 1.0.1-SecretsManager |
+| <a name="module_key_secrets"></a> [key\_secrets](#module\_key\_secrets) | git::https://github.com/generalui/terraform-accelerator.git//SecretsManager | 1.0.2-SecretsManager |
 | <a name="module_kms_key"></a> [kms\_key](#module\_kms\_key) | ../ | n/a |
-| <a name="module_ssh_key_pair"></a> [ssh\_key\_pair](#module\_ssh\_key\_pair) | git::git@github.com:generalui/terraform-accelerator.git//KeyPair | 1.0.1-KeyPair |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
+| <a name="module_ssh_key_pair"></a> [ssh\_key\_pair](#module\_ssh\_key\_pair) | git::https://github.com/generalui/terraform-accelerator.git//KeyPair | 1.0.2-KeyPair |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/generalui/terraform-accelerator.git//Label | 1.0.2-Label |
 
 ## Resources
 

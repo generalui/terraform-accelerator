@@ -16,11 +16,11 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_db_subnets"></a> [db\_subnets](#module\_db\_subnets) | git::git@github.com:generalui/terraform-accelerator.git//Subnet | 1.0.1-Subnet |
-| <a name="module_kms_key_db"></a> [kms\_key\_db](#module\_kms\_key\_db) | git::git@github.com:generalui/terraform-accelerator.git//KmsKey | 1.0.1-KmsKey |
+| <a name="module_db_subnets"></a> [db\_subnets](#module\_db\_subnets) | git::https://github.com/generalui/terraform-accelerator.git//Subnet | 1.0.2-Subnet |
+| <a name="module_kms_key_db"></a> [kms\_key\_db](#module\_kms\_key\_db) | git::https://github.com/generalui/terraform-accelerator.git//KmsKey | 1.0.2-KmsKey |
 | <a name="module_rds"></a> [rds](#module\_rds) | ../ | n/a |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::git@github.com:generalui/terraform-accelerator.git//VPC | 1.0.1-VPC |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/generalui/terraform-accelerator.git//Label | 1.0.2-Label |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/generalui/terraform-accelerator.git//VPC | 1.0.1-VPC |
 
 ## Resources
 

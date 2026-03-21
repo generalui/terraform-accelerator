@@ -25,7 +25,7 @@ data "aws_region" "current" {}
 
 # This is the "context". It uses the Label module to help ensure consistant naming conventions.
 module "this" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//Label?ref=1.0.1-Label"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//Label?ref=1.0.2-Label"
 
   attributes = var.attributes
   name       = var.project
@@ -38,7 +38,7 @@ module "this" {
 }
 
 module "policy" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//IamPolicy?ref=1.0.2-IamPolicy"
 
   iam_policy_enabled = true
   name               = "ssm-port-forwarding"
@@ -62,7 +62,7 @@ module "policy" {
 }
 
 module "lambda_logging_policy" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//IamPolicy?ref=1.0.2-IamPolicy"
 
   iam_policy_enabled = true
   name               = "lambda-logging"
@@ -86,7 +86,7 @@ module "lambda_logging_policy" {
 }
 
 module "lambda_access_s3_policy" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//IamPolicy?ref=1.0.1-IamPolicy"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//IamPolicy?ref=1.0.2-IamPolicy"
 
   iam_policy_enabled = true
   name               = "lambda-access-s3"

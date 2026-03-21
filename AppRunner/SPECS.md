@@ -16,9 +16,9 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_apprunner_access_role"></a> [apprunner\_access\_role](#module\_apprunner\_access\_role) | git::git@github.com:generalui/terraform-accelerator.git//IamRole | 1.0.1-IamRole |
-| <a name="module_ecr_access_policy"></a> [ecr\_access\_policy](#module\_ecr\_access\_policy) | git::git@github.com:generalui/terraform-accelerator.git//IamPolicy | 1.0.1-IamPolicy |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
+| <a name="module_apprunner_access_role"></a> [apprunner\_access\_role](#module\_apprunner\_access\_role) | git::https://github.com/generalui/terraform-accelerator.git//IamRole | 1.0.2-IamRole |
+| <a name="module_ecr_access_policy"></a> [ecr\_access\_policy](#module\_ecr\_access\_policy) | git::https://github.com/generalui/terraform-accelerator.git//IamPolicy | 1.0.2-IamPolicy |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/generalui/terraform-accelerator.git//Label | 1.0.2-Label |
 
 ## Resources
 

@@ -13,7 +13,7 @@ Follow this procedure just once to create your deployment.
     # be bootstrapped according to the simple yet essential procedure in
     # https://github.com/cloudposse/terraform-aws-tfstate-backend#usage
     module "terraform_state_backend" {
-        source = "./modules/TerraformState"
+        source = "git::https://github.com/generalui/terraform-accelerator.git//TerraformState?ref=1.1.1-TerraformState"
 
         attributes = ["state"]
         context    = module.this.context

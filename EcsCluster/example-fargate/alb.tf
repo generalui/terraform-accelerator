@@ -1,5 +1,5 @@
 module "alb" {
-  source = "git::git@github.com:generalui/terraform-accelerator.git//ALB?ref=1.0.1-ALB"
+  source = "git::https://github.com/generalui/terraform-accelerator.git//ALB?ref=1.0.2-ALB"
 
   context = module.this.context
 

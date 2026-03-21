@@ -20,8 +20,8 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_apprunner"></a> [apprunner](#module\_apprunner) | ../ | n/a |
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | git::git@github.com:generalui/terraform-accelerator.git//ECR | 1.0.1-ECR |
-| <a name="module_this"></a> [this](#module\_this) | git::git@github.com:generalui/terraform-accelerator.git//Label | 1.0.1-Label |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | git::https://github.com/generalui/terraform-accelerator.git//ECR | 1.0.2-ECR |
+| <a name="module_this"></a> [this](#module\_this) | git::https://github.com/generalui/terraform-accelerator.git//Label | 1.0.2-Label |
 
 ## Resources
 
